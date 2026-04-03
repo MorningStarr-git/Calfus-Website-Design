@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calfus — Visual Guide v4</title>
+<link href="./Calfus — Visual Guide_files/css2" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --teal:#00C8BE;--teal-d:#00A89F;
+  --violet:#7B4FE0;
+  --coral:#FF3D6B;
+  --amber:#B8832A;
+  --bg:#0F0E2A;--bg2:#080716;--bg3:#1A0D3D;
+  --surface:rgba(255,255,255,.045);
+  --border:rgba(255,255,255,.09);
+  --text:#fff;--text2:rgba(255,255,255,.55);--text3:rgba(255,255,255,.28);
+  --success:#1A9E6E;--warning:#D4840A;--error:#C0392B;
+  --guide-bg:#0F0E2A;
+  --guide-card:rgba(255,255,255,.04);
+  --guide-border:rgba(255,255,255,.09);
+  --guide-text:#fff;
+  --guide-text2:rgba(255,255,255,.55);
+  --guide-text3:rgba(255,255,255,.28);
+  --guide-section:#080716;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--guide-bg);color:var(--guide-text);overflow-x:hidden;font-size:14px;line-height:1.6}
+
+/* ── GUIDE CHROME ────────────────────────────────────────── */
+.guide-nav{position:sticky;top:0;z-index:100;background:rgba(8,7,22,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--guide-border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.guide-logo{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--guide-text);display:flex;align-items:center;gap:8px;letter-spacing:-.3px}
+.guide-logo-dot{width:7px;height:7px;background:var(--teal);border-radius:50%;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
+.guide-nav-links{display:flex;align-items:center;gap:4px}
+.guide-nav-links a{font-size:12px;font-weight:500;color:var(--guide-text3);text-decoration:none;padding:6px 12px;border-radius:6px;transition:color .2s,background .2s;letter-spacing:.3px}
+.guide-nav-links a:hover{color:var(--teal);background:rgba(0,200,190,.08)}
+.guide-badge{font-size:11px;font-weight:600;color:var(--teal);background:rgba(0,200,190,.1);border:1px solid rgba(0,200,190,.2);padding:3px 10px;border-radius:100px;letter-spacing:.5px}
+
+/* ── COVER ───────────────────────────────────────────────── */
+.cover{padding:80px 40px 64px;border-bottom:1px solid var(--guide-border);position:relative;overflow:hidden;background:linear-gradient(135deg,#0F0E2A 0%,#1A0D3D 50%,#0F0E2A 100%)}
+.cover-eyebrow{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.cover-eyebrow::before{content:'';width:5px;height:5px;background:var(--teal);border-radius:50%;display:block}
+.cover-h{font-family:'Space Grotesk',sans-serif;font-size:clamp(42px,6vw,72px);font-weight:700;line-height:.96;letter-spacing:-3px;color:#fff;margin-bottom:20px}
+.cover-h em{color:var(--teal);font-style:normal}
+.cover-sub{font-size:16px;color:var(--guide-text2);font-weight:300;max-width:520px;line-height:1.75;margin-bottom:40px}
+.cover-meta{display:flex;gap:16px;flex-wrap:wrap}
+.cover-tag{font-size:11px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--guide-text3);background:var(--surface);border:1px solid var(--guide-border);padding:6px 14px;border-radius:100px}
+.cover-tag span{color:var(--guide-text2)}
+.cover-dec{position:absolute;top:50%;right:8%;transform:translateY(-50%);opacity:.12;pointer-events:none}
+
+/* ── SECTION WRAPPERS ────────────────────────────────────── */
+.guide-section{padding:56px 40px;border-bottom:1px solid var(--guide-border)}
+.guide-section.alt{background:var(--guide-section)}
+.section-header{margin-bottom:36px}
+.section-num{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.section-num::before{content:'';width:5px;height:5px;background:var(--teal);border-radius:50%}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;letter-spacing:-1px;color:#fff;margin-bottom:8px}
+.section-desc{font-size:14px;color:var(--guide-text2);font-weight:300;max-width:640px;line-height:1.75}
+.section-rule{width:48px;height:2px;background:var(--teal);border-radius:1px;margin:20px 0}
+
+/* ── SUBSECTIONS ─────────────────────────────────────────── */
+.sub-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--guide-text3);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--guide-border)}
+.spec-note{font-size:12px;color:var(--guide-text3);font-style:italic;margin-top:8px;line-height:1.6}
+.rule-note{background:rgba(0,200,190,.06);border:1px solid rgba(0,200,190,.14);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:var(--guide-text2);line-height:1.65;margin-top:12px}
+.rule-note.warn{background:rgba(255,61,107,.05);border-color:rgba(255,61,107,.15);border-left-color:var(--coral)}
+.rule-note.amber{background:rgba(184,131,42,.05);border-color:rgba(184,131,42,.15);border-left-color:var(--amber)}
+
+/* ── GRID HELPERS ────────────────────────────────────────── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.g2-3{display:grid;grid-template-columns:2fr 1fr;gap:32px}
+
+/* ── COLOUR SWATCHES ─────────────────────────────────────── */
+.swatch-group{display:flex;flex-direction:column;gap:3px}
+.swatch{display:flex;align-items:stretch;border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.swatch-block{width:72px;flex-shrink:0}
+.swatch-info{background:rgba(255,255,255,.05);border:1px solid var(--guide-border);border-left:none;padding:12px 14px;flex:1;border-radius:0 10px 10px 0}
+.swatch-name{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:2px}
+.swatch-hex{font-family:'Courier New',monospace;font-size:11px;color:var(--guide-text3);margin-bottom:6px}
+.swatch-role{font-size:12px;color:var(--guide-text2);line-height:1.5;font-weight:300}
+.swatch-block-tall{height:80px}
+.swatch-block-sm{height:48px}
+
+/* small swatch row */
+.swatch-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface);border:1px solid var(--guide-border);border-radius:8px}
+.swatch-dot{width:20px;height:20px;border-radius:5px;flex-shrink:0}
+.swatch-row-name{font-size:12px;font-weight:600;color:var(--guide-text);flex:1}
+.swatch-row-hex{font-family:'Courier New',monospace;font-size:11px;color:var(--guide-text3)}
+.swatch-row-role{font-size:11px;color:var(--guide-text3);text-align:right;flex:1.5}
+
+/* token table */
+.token-table{width:100%;border-collapse:collapse;font-size:12px}
+.token-table th{text-align:left;font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--guide-text3);padding:8px 12px;border-bottom:1px solid var(--guide-border)}
+.token-table td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--guide-text2);vertical-align:top}
+.token-table td:first-child{font-family:'Courier New',monospace;color:var(--teal);font-size:11px}
+.token-table td:nth-child(2){font-family:'Courier New',monospace;color:var(--guide-text3);font-size:11px}
+.token-table tr:last-child td{border-bottom:none}
+.token-table tr:hover td{background:rgba(255,255,255,.02)}
+
+/* ── TYPOGRAPHY SPECIMENS ────────────────────────────────── */
+.type-specimen{background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;padding:20px 22px;position:relative;overflow:hidden}
+.type-specimen-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--guide-text3);margin-bottom:12px}
+.type-specimen-preview{margin-bottom:12px}
+.type-meta{display:flex;gap:12px;flex-wrap:wrap}
+.type-meta-item{font-size:11px;color:var(--guide-text3);background:rgba(255,255,255,.04);padding:3px 8px;border-radius:4px;font-family:'Courier New',monospace}
+
+.type-scale-row{display:flex;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.type-scale-row:last-child{border-bottom:none}
+.type-scale-label{font-size:11px;color:var(--guide-text3);width:120px;flex-shrink:0;font-family:'Courier New',monospace}
+.type-scale-sample{flex:1;color:#fff}
+.type-scale-spec{font-size:11px;color:var(--guide-text3);text-align:right;font-family:'Courier New',monospace;flex-shrink:0;width:200px}
+
+/* ── COMPONENTS ──────────────────────────────────────────── */
+.comp-block{background:var(--surface);border:1px solid var(--guide-border);border-radius:12px;padding:22px;position:relative}
+.comp-block-label{font-size:10px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:var(--guide-text3);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--guide-border)}
+.comp-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.comp-row:last-child{margin-bottom:0}
+
+/* buttons */
+.btn-p{background:var(--teal);color:#fff;font-size:13px;font-weight:500;padding:12px 24px;border-radius:6px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;transition:background .2s}
+.btn-p:hover{background:var(--teal-d)}
+.btn-s{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:500;padding:12px 24px;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .2s}
+.btn-s:hover{border-color:var(--teal)}
+.btn-t{background:transparent;border:none;color:var(--teal);font-size:13px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
+.btn-v{background:var(--violet);color:#fff;font-size:13px;font-weight:500;padding:12px 24px;border-radius:6px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-sm{font-size:11px;padding:8px 16px}
+.btn-dis{opacity:.4;cursor:not-allowed}
+
+/* tags */
+.tag{display:inline-flex;align-items:center;gap:5px;background:rgba(0,200,190,.08);border:1px solid rgba(0,200,190,.2);color:var(--teal);font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+.tag-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.tag.v{background:rgba(123,79,224,.08);border-color:rgba(123,79,224,.2);color:#a78bf5}
+.tag.c{background:rgba(255,61,107,.07);border-color:rgba(255,61,107,.15);color:#ff6b8e}
+.tag.a{background:rgba(184,131,42,.07);border-color:rgba(184,131,42,.18);color:#d4a855}
+
+/* icon wraps */
+.iw{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:rgba(0,200,190,.08);border:1px solid rgba(0,200,190,.18);border-radius:10px;flex-shrink:0}
+.iw.v{background:rgba(123,79,224,.08);border-color:rgba(123,79,224,.2)}
+.iw.c{background:rgba(255,61,107,.07);border-color:rgba(255,61,107,.15)}
+.iw.a{background:rgba(184,131,42,.08);border-color:rgba(184,131,42,.18)}
+
+/* toasts */
+.toast{display:flex;align-items:center;gap:10px;padding:11px 15px;border-radius:8px;font-size:13px;font-weight:500}
+.toast.ok{background:rgba(26,158,110,.1);border:1px solid rgba(26,158,110,.2);color:#2dc98e}
+.toast.warn{background:rgba(212,132,10,.08);border:1px solid rgba(212,132,10,.18);color:#e8a830}
+.toast.err{background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.18);color:#e05545}
+.toast.info{background:rgba(0,200,190,.07);border:1px solid rgba(0,200,190,.18);color:var(--teal)}
+
+/* form */
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;font-weight:500;color:var(--guide-text2)}
+.field input,.field textarea,.field select{height:44px;background:rgba(255,255,255,.04);border:1.5px solid var(--guide-border);border-radius:6px;color:#fff;font-size:13px;font-family:'DM Sans',sans-serif;padding:0 13px;outline:none;transition:border-color .2s;width:100%}
+.field input:focus{border-color:var(--teal)}
+.field input::placeholder{color:var(--guide-text3)}
+.field textarea{height:72px;padding:11px 13px;resize:none}
+.field-err input,.field-err select{border-color:rgba(192,57,43,.6)}
+.field-err-msg{font-size:11px;color:#e05545;margin-top:2px}
+
+/* toggle switch */
+.sw{width:34px;height:19px;border-radius:100px;background:var(--guide-border);position:relative;cursor:pointer;transition:background .3s}
+.sw.on{background:var(--teal)}
+.sw-th{width:13px;height:13px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .3s}
+.sw.on .sw-th{transform:translateX(15px)}
+
+/* slider */
+input[type=range]{width:100%;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--teal) var(--val,60%),rgba(255,255,255,.09) var(--val,60%));outline:none;cursor:pointer;-webkit-appearance:none;appearance:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--teal);cursor:pointer;border:2px solid #0F0E2A}
+
+/* progress */
+.prog{background:rgba(255,255,255,.08);border-radius:100px;height:5px;overflow:hidden}
+.prog-bar{height:100%;border-radius:100px;background:var(--teal)}
+
+/* segmented */
+.seg{display:inline-flex;background:rgba(255,255,255,.04);border:1px solid var(--guide-border);border-radius:8px;padding:3px;gap:2px}
+.seg-btn{padding:6px 13px;border-radius:5px;font-size:12px;font-weight:500;color:var(--guide-text3);cursor:pointer;border:none;background:transparent;transition:all .2s;font-family:'DM Sans',sans-serif}
+.seg-btn.active{background:var(--teal);color:#fff}
+
+/* avatar */
+.av-stack{display:flex}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid #0F0E2A;margin-left:-7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.av:first-child{margin-left:0}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:var(--coral);color:#fff;font-size:9px;font-weight:700}
+
+/* kbd */
+kbd{display:inline-flex;align-items:center;padding:2px 7px;background:rgba(255,255,255,.06);border:1px solid var(--guide-border);border-radius:4px;font-size:11px;font-family:'DM Sans',sans-serif;color:var(--guide-text2)}
+
+/* skeleton */
+.skel{background:linear-gradient(90deg,rgba(255,255,255,.06) 25%,rgba(255,255,255,.03) 50%,rgba(255,255,255,.06) 75%);background-size:200% 100%;border-radius:6px;animation:sk 1.5s ease-in-out infinite}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* breadcrumb */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--guide-text3)}
+.breadcrumb a{color:var(--guide-text2);text-decoration:none}
+.breadcrumb a:hover{color:var(--teal)}
+
+/* otp */
+.otp-wrap{display:flex;gap:7px}
+.otp-box{width:40px;height:44px;text-align:center;background:rgba(255,255,255,.04);border:1.5px solid var(--guide-border);border-radius:8px;color:#fff;font-size:16px;font-weight:600;outline:none;transition:border-color .2s;font-family:'Space Grotesk',sans-serif}
+.otp-box.filled{border-color:var(--teal)}
+
+/* cards */
+.card-l{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:24px;color:#1E2530}
+.card-d{background:#0F0E2A;border-radius:12px;padding:24px}
+
+/* process flow */
+.pflow{display:flex;align-items:flex-start;gap:0}
+.pf-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
+.pf-step:not(:last-child)::after{content:'';position:absolute;top:18px;left:55%;width:90%;height:1px;background:rgba(0,200,190,.22);z-index:0}
+.pf-circle{width:36px;height:36px;border-radius:50%;background:rgba(0,200,190,.08);border:1.5px solid rgba(0,200,190,.25);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--teal);z-index:1;position:relative;font-family:'Space Grotesk',sans-serif}
+.pf-circle.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.pf-lbl{font-size:11px;color:var(--guide-text2);margin-top:8px;text-align:center;line-height:1.3}
+
+/* bar chart */
+.barchart{display:flex;align-items:flex-end;gap:8px;height:110px;padding-bottom:18px;position:relative}
+.barchart::after{content:'';position:absolute;bottom:17px;left:0;right:0;height:1px;background:var(--guide-border)}
+.bc-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:5px}
+.bc-bar{width:100%;border-radius:4px 4px 0 0}
+.bc-lbl{font-size:10px;color:var(--guide-text3);white-space:nowrap}
+.bc-val{font-size:9px;color:var(--guide-text2);font-weight:500}
+
+/* dash */
+.dash{background:rgba(255,255,255,.03);border:1px solid var(--guide-border);border-radius:14px;overflow:hidden}
+.dash-hdr{padding:13px 16px;border-bottom:1px solid var(--guide-border);display:flex;align-items:center;justify-content:space-between}
+.dash-t{font-size:12px;font-weight:500;color:var(--guide-text2)}
+.dm{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.dm:last-child{border:none}
+.dm-n{font-size:12px;color:var(--guide-text2)}
+.dm-v{font-size:13px;font-weight:600;color:#fff}
+.bw{width:70px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.bf{height:100%;border-radius:2px}
+.cp{font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(26,158,110,.12);color:#2dc98e}
+.cn{font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(192,57,43,.1);color:#e05545}
+
+/* context menu */
+.ctx{background:#0F0E2A;border:1px solid var(--guide-border);border-radius:10px;padding:6px;min-width:170px}
+.ctx-item{display:flex;align-items:center;justify-content:space-between;padding:7px 11px;border-radius:6px;font-size:13px;color:#fff;cursor:pointer;transition:background .15s}
+.ctx-item:hover{background:rgba(255,255,255,.06)}
+.ctx-item.danger{color:var(--error)}
+.ctx-sep{height:1px;background:var(--guide-border);margin:4px 0}
+
+/* live dot */
+.live-dot{width:5px;height:5px;background:var(--success);border-radius:50%;display:inline-block;animation:pulse 1.5s infinite}
+
+/* ── SPEC RULES ──────────────────────────────────────────── */
+.spec-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.spec-table th{text-align:left;font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--guide-text3);padding:8px 12px;border-bottom:1px solid var(--guide-border)}
+.spec-table td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--guide-text2);vertical-align:top;line-height:1.6}
+.spec-table td:first-child{font-weight:600;color:#fff;width:160px}
+.spec-table tr:last-child td{border-bottom:none}
+
+/* pointer guide */
+.pointer-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05);align-items:flex-start}
+.pointer-item:last-child{border-bottom:none}
+.pointer-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:4px}
+.pointer-dot.orange{background:var(--coral)}
+.pointer-dot.amber{background:var(--amber)}
+.pointer-content h4{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.pointer-content p{font-size:13px;color:var(--guide-text2);font-weight:300;line-height:1.65}
+.pointer-content code{font-family:'Courier New',monospace;font-size:11px;color:var(--teal);background:rgba(0,200,190,.08);padding:2px 6px;border-radius:3px}
+
+/* icon specimen */
+.icon-spec{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 12px;background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;text-align:center}
+.icon-spec-name{font-size:10px;color:var(--guide-text3);font-weight:600;letter-spacing:.5px}
+.icon-spec-usage{font-size:10px;color:var(--guide-text3);font-weight:300;line-height:1.4;margin-top:2px}
+
+/* DO / DONT */
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.do-col{background:rgba(26,158,110,.05);border:1px solid rgba(26,158,110,.15);border-radius:10px;padding:18px 20px}
+.dont-col{background:rgba(192,57,43,.05);border:1px solid rgba(192,57,43,.15);border-radius:10px;padding:18px 20px}
+.do-col h4,.dont-col h4{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.do-col h4{color:#2dc98e}
+.dont-col h4{color:#e05545}
+.do-item,.dont-item{display:flex;gap:10px;margin-bottom:10px;font-size:13px;color:var(--guide-text2);line-height:1.55;font-weight:300}
+.do-item::before{content:'✓';color:#2dc98e;font-weight:700;flex-shrink:0;width:16px}
+.dont-item::before{content:'✕';color:#e05545;font-weight:700;flex-shrink:0;width:16px}
+
+/* spacing vis */
+.spacing-vis{display:flex;align-items:flex-end;gap:0}
+.sp-col{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1}
+.sp-block{width:100%;background:rgba(0,200,190,.15);border:1px solid rgba(0,200,190,.25);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px}
+.sp-val{font-size:10px;font-weight:700;color:var(--teal);font-family:'Space Grotesk',sans-serif}
+.sp-lbl{font-size:10px;color:var(--guide-text3)}
+
+/* motion timeline */
+.motion-row{display:flex;align-items:center;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.motion-row:last-child{border-bottom:none}
+.motion-name{font-size:12px;font-weight:600;color:#fff;width:100px;flex-shrink:0}
+.motion-bar-wrap{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;position:relative}
+.motion-bar{height:6px;background:var(--teal);border-radius:3px}
+.motion-val{font-size:11px;font-family:'Courier New',monospace;color:var(--guide-text3);width:60px;text-align:right;flex-shrink:0}
+.motion-use{font-size:11px;color:var(--guide-text3);width:220px;flex-shrink:0}
+
+/* cursor demo */
+.cursor-demo{display:flex;gap:20px;align-items:center;padding:24px;background:rgba(255,255,255,.03);border:1px solid var(--guide-border);border-radius:10px;position:relative;overflow:hidden}
+.cursor-state{display:flex;flex-direction:column;align-items:center;gap:10px}
+.cursor-label{font-size:10px;color:var(--guide-text3);text-transform:uppercase;letter-spacing:.8px}
+.c-default{width:18px;height:18px;border-radius:50%;background:var(--teal);position:relative}
+.c-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;border:1.5px solid var(--teal);opacity:.4}
+.c-hover{width:28px;height:28px;border-radius:50%;background:var(--teal)}
+.c-hover-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;border:1.5px solid var(--teal);opacity:.25}
+.c-click{width:13px;height:13px;border-radius:50%;background:var(--teal)}
+
+/* scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.2)}
+</style>
+<style id="__web-inspector-hide-shortcut-style__">
+.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *
+{
+    visibility: hidden !important;
+}
+</style></head>
+<body>
+
+<!-- NAV -->
+<nav class="guide-nav">
+  <div class="guide-logo">
+    <span class="guide-logo-dot"></span>
+    Calfus Visual Guide
+  </div>
+  <nav class="guide-nav-links">
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#colours">Colour</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#typography">Typography</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#spacing">Spacing</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#cursor">Cursor</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#icons">Icons</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#buttons">Buttons</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#tags">Tags</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#forms">Forms</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#feedback">Feedback</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#data">Data</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#cards">Cards</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#navigation">Navigation</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#motion">Motion</a>
+    <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#dos">Do / Don't</a>
+  </nav>
+  
+</nav>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-dec">
+    <svg width="320" height="320" viewBox="0 0 320 320">
+      <circle cx="160" cy="160" r="140" fill="none" stroke="#00C8BE" stroke-width="1" stroke-dasharray="6 8" opacity=".5">
+        <animatetransform attributeName="transform" type="rotate" from="0 160 160" to="360 160 160" dur="28s" repeatCount="indefinite"></animatetransform>
+      </circle>
+      <circle cx="160" cy="160" r="96" fill="none" stroke="#7B4FE0" stroke-width="1" stroke-dasharray="3 8" opacity=".4">
+        <animatetransform attributeName="transform" type="rotate" from="0 160 160" to="-360 160 160" dur="20s" repeatCount="indefinite"></animatetransform>
+      </circle>
+      <circle cx="160" cy="160" r="50" fill="rgba(0,200,190,.05)" stroke="#00C8BE" stroke-width="1.5" opacity=".6"></circle>
+      <circle cx="160" cy="160" r="8" fill="#00C8BE" opacity=".8"><animate attributeName="r" values="8;11;8" dur="2.5s" repeatCount="indefinite"></animate></circle>
+      <circle r="4" fill="#00C8BE" opacity=".8"><animatemotion dur="4s" repeatCount="indefinite" path="M160,160 m0,-96 a96,96 0 1,1 -0.1,0 z"></animatemotion></circle>
+    </svg>
+  </div>
+  <div class="cover-eyebrow">Visual Design Guide</div>
+  <h1 class="cover-h">Calfus<br><em>Design System</em></h1>
+  <p class="cover-sub">The complete visual reference for Option 1 — the selected website direction. Covers colour, typography, spacing, cursor, icons, all UI components, motion, and usage guidance.</p>
+  <div class="cover-meta">
+    
+    <div class="cover-tag">Fonts <span>Space Grotesk + DM Sans + Lora</span></div>
+    <div class="cover-tag">Primary <span>#00C8BE Teal</span></div>
+    <div class="cover-tag">Background <span>#0F0E2A Deep Violet-Black</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     1. COLOUR PALETTE
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section" id="colours">
+  <div class="section-header">
+    <div class="section-num">01 — Colour</div>
+    <h2 class="section-title">Colour Palette</h2>
+    <p class="section-desc">A five-colour system built for AI-native enterprise. Every colour has a job. None are decorative.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- PRIMARY -->
+  <div class="sub-label">Primary Colours</div>
+  <div class="g2" style="margin-bottom:24px">
+    <div class="swatch-group">
+      <div class="swatch">
+        <div class="swatch-block swatch-block-tall" style="background:#00C8BE"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Teal — Primary</div>
+          <div class="swatch-hex">#00C8BE</div>
+          <div class="swatch-role">Every button, CTA, active state, link, logo dot, and cursor. Teal always means "do something" or "this is Calfus." Never used decoratively.</div>
+        </div>
+      </div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch">
+        <div class="swatch-block swatch-block-tall" style="background:#00A89F"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Teal Dark — Hover</div>
+          <div class="swatch-hex">#00A89F</div>
+          <div class="swatch-role">Button hover state, active teal elements. Only ever appears as a state change from the primary teal — never as a standalone colour.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACKGROUNDS -->
+  <div class="sub-label">Background System</div>
+  <div class="g3" style="margin-bottom:24px">
+    <div class="swatch">
+      <div class="swatch-block swatch-block-sm" style="background:#0F0E2A;border:1px solid rgba(255,255,255,.1)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Deep Violet-Black</div>
+        <div class="swatch-hex">#0F0E2A</div>
+        <div class="swatch-role">Primary background — hero, nav, agent section, talent.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block swatch-block-sm" style="background:#080716;border:1px solid rgba(255,255,255,.08)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Deeper Dark</div>
+        <div class="swatch-hex">#080716</div>
+        <div class="swatch-role">Problem, stats, CTA, footer — creates alternation rhythm.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block swatch-block-sm" style="background:#1A0D3D;border:1px solid rgba(255,255,255,.08)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Violet-Tinted Dark</div>
+        <div class="swatch-hex">#1A0D3D</div>
+        <div class="swatch-role">Testimonial, Aetherion, platform gradient moments.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCENT -->
+  <div class="sub-label">Accent Colours</div>
+  <div class="g3" style="margin-bottom:24px">
+    <div class="swatch">
+      <div class="swatch-block swatch-block-sm" style="background:#7B4FE0"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Electric Violet</div>
+        <div class="swatch-hex">#7B4FE0</div>
+        <div class="swatch-role">AI/intelligence moments. Aetherion nodes, Agent Foundry, platform gradient. Never on buttons.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block swatch-block-sm" style="background:#FF3D6B"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Hot Coral</div>
+        <div class="swatch-hex">#FF3D6B</div>
+        <div class="swatch-role">Very sparingly — warning/error states, one agent icon, one cap card. Prevents the palette feeling cold.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block swatch-block-sm" style="background:#B8832A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Amber</div>
+        <div class="swatch-hex">#B8832A</div>
+        <div class="swatch-role">Data/proof only — stat number units (%, ×), data viz bars. Never buttons, never decoration.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UI STATES -->
+  <div class="sub-label">UI States</div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px">
+    <div class="swatch-row"><div class="swatch-dot" style="background:#1A9E6E"></div><div class="swatch-row-name">Success</div><div class="swatch-row-hex">#1A9E6E</div><div class="swatch-row-role">Confirmations, positive KPIs, live agent dot, completed states</div></div>
+    <div class="swatch-row"><div class="swatch-dot" style="background:#D4840A"></div><div class="swatch-row-name">Warning</div><div class="swatch-row-hex">#D4840A</div><div class="swatch-row-role">Alerts, caution, latency warnings, threshold exceeded</div></div>
+    <div class="swatch-row"><div class="swatch-dot" style="background:#C0392B"></div><div class="swatch-row-name">Error</div><div class="swatch-row-hex">#C0392B</div><div class="swatch-row-role">Form errors, integration failures, critical system alerts</div></div>
+  </div>
+
+  <!-- SURFACE TOKENS -->
+  <div class="sub-label">Surface &amp; Border Tokens</div>
+  <table class="token-table" style="margin-bottom:24px">
+    <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>--surface</td><td>rgba(255,255,255, .045)</td><td>Card fills, agent cards, capability cards, UI block backgrounds</td></tr>
+      <tr><td>--border</td><td>rgba(255,255,255, .09)</td><td>All borders on dark backgrounds — cards, inputs, dividers</td></tr>
+      <tr><td>--text</td><td>#ffffff</td><td>Primary text on dark backgrounds</td></tr>
+      <tr><td>--text2</td><td>rgba(255,255,255, .55)</td><td>Body copy, descriptions, secondary text, labels</td></tr>
+      <tr><td>--text3</td><td>rgba(255,255,255, .28)</td><td>Placeholders, captions, muted labels, graph labels</td></tr>
+      <tr><td>--vd</td><td>#0F0E2A</td><td>Dark card (navy-card variant) background</td></tr>
+    </tbody>
+  </table>
+
+  <!-- DATA VIZ PALETTE -->
+  <div class="sub-label">Data Visualisation Palette — in order</div>
+  <div style="display:flex;gap:8px;align-items:flex-end;margin-bottom:12px">
+    <div style="text-align:center"><div style="width:40px;height:80px;background:#00C8BE;border-radius:4px 4px 0 0;margin-bottom:6px"></div><div style="font-size:10px;color:var(--guide-text3)">01 Teal</div></div>
+    <div style="text-align:center"><div style="width:40px;height:68px;background:#7B4FE0;border-radius:4px 4px 0 0;margin-bottom:6px"></div><div style="font-size:10px;color:var(--guide-text3)">02 Violet</div></div>
+    <div style="text-align:center"><div style="width:40px;height:54px;background:#B8832A;border-radius:4px 4px 0 0;margin-bottom:6px"></div><div style="font-size:10px;color:var(--guide-text3)">03 Amber</div></div>
+    <div style="text-align:center"><div style="width:40px;height:42px;background:rgba(0,200,190,.45);border-radius:4px 4px 0 0;margin-bottom:6px"></div><div style="font-size:10px;color:var(--guide-text3)">04 Teal faded</div></div>
+    <div style="text-align:center"><div style="width:40px;height:10px;background:#1A9E6E;border-radius:4px 4px 0 0;margin-bottom:6px"></div><div style="font-size:10px;color:var(--guide-text3)">05 Success</div></div>
+  </div>
+  <div class="rule-note">Data viz is the only place you'll see more than two colours in one element. Always use this sequence — never improvise additional colours.</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     2. TYPOGRAPHY
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section alt" id="typography">
+  <div class="section-header">
+    <div class="section-num">02 — Typography</div>
+    <h2 class="section-title">Typography System</h2>
+    <p class="section-desc">Space Grotesk for all display and headings. DM Sans for all UI, body, and labels. Lora italic for testimonials and pull quotes only.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- FONT SPECIMENS -->
+  <div class="g3" style="margin-bottom:32px">
+    <div class="type-specimen">
+      <div class="type-specimen-label">Display / Headings</div>
+      <div class="type-specimen-preview">
+        <div style="font-family:&#39;Space Grotesk&#39;,sans-serif;font-size:52px;font-weight:700;line-height:.96;letter-spacing:-3px;color:#fff">Aa</div>
+      </div>
+      <div style="font-family:&#39;Space Grotesk&#39;,sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:4px">Space Grotesk</div>
+      <div style="font-size:12px;color:var(--guide-text3);margin-bottom:10px">Weight 700 only on web headings</div>
+      <div class="type-meta">
+        <span class="type-meta-item">Google Fonts</span>
+        <span class="type-meta-item">Free / OFL</span>
+        <span class="type-meta-item">700 — display</span>
+      </div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-specimen-label">Body / UI / Labels</div>
+      <div class="type-specimen-preview">
+        <div style="font-family:&#39;DM Sans&#39;,sans-serif;font-size:52px;font-weight:300;line-height:.96;color:#fff">Aa</div>
+      </div>
+      <div style="font-family:&#39;DM Sans&#39;,sans-serif;font-size:18px;font-weight:400;color:#fff;margin-bottom:4px">DM Sans</div>
+      <div style="font-size:12px;color:var(--guide-text3);margin-bottom:10px">Weights 300 · 400 · 500 · 600</div>
+      <div class="type-meta">
+        <span class="type-meta-item">Google Fonts</span>
+        <span class="type-meta-item">Free / OFL</span>
+        <span class="type-meta-item">300–600 range</span>
+      </div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-specimen-label">Editorial / Testimonials</div>
+      <div class="type-specimen-preview">
+        <div style="font-family:&#39;Lora&#39;,serif;font-size:40px;font-weight:400;font-style:italic;line-height:1.1;color:var(--teal)">"Aa"</div>
+      </div>
+      <div style="font-family:&#39;Lora&#39;,serif;font-style:italic;font-size:18px;color:#fff;margin-bottom:4px">Lora Italic</div>
+      <div style="font-size:12px;color:var(--guide-text3);margin-bottom:10px">Testimonials and pull quotes only</div>
+      <div class="type-meta">
+        <span class="type-meta-item">Google Fonts</span>
+        <span class="type-meta-item">Free / OFL</span>
+        <span class="type-meta-item">Italic 400 only</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPE SCALE -->
+  <div class="sub-label">Type Scale</div>
+  <div style="background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;padding:4px 16px;margin-bottom:24px">
+    <div class="type-scale-row">
+      <div class="type-scale-label">D1 — Hero</div>
+      <div class="type-scale-sample" style="font-family:&#39;Space Grotesk&#39;;font-size:36px;font-weight:700;letter-spacing:-2px;line-height:1">Run with it.</div>
+      <div class="type-scale-spec">clamp(58,8.5vw,108px) · 700 · -3px</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">H1</div>
+      <div class="type-scale-sample" style="font-family:&#39;Space Grotesk&#39;;font-size:28px;font-weight:700;letter-spacing:-1.5px">Aetherion. The engine.</div>
+      <div class="type-scale-spec">clamp(34,4.5vw,56px) · 700 · -2px</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">H2</div>
+      <div class="type-scale-sample" style="font-family:&#39;Space Grotesk&#39;;font-size:22px;font-weight:700;letter-spacing:-1px">Intelligence, by design.</div>
+      <div class="type-scale-spec">clamp(28,3.5vw,46px) · 700 · -1.5px</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">Editorial</div>
+      <div class="type-scale-sample" style="font-family:&#39;Space Grotesk&#39;;font-size:20px;font-weight:700;letter-spacing:-1px">What if you could create the future?</div>
+      <div class="type-scale-spec">clamp(36,5vw,62px) · 700 · -2.5px</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">Testimonial</div>
+      <div class="type-scale-sample" style="font-family:&#39;Lora&#39;,serif;font-size:17px;font-style:italic;color:var(--guide-text2)">"The results were measurable from week one."</div>
+      <div class="type-scale-spec">clamp(20,2.8vw,36px) · italic · -0.3px</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">Body Large</div>
+      <div class="type-scale-sample" style="font-family:&#39;DM Sans&#39;;font-size:16px;font-weight:300;color:var(--guide-text2)">Platform-led AI partner helping enterprises deliver real outcomes.</div>
+      <div class="type-scale-spec">17–18px · 300 · 1.75–1.82lh</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">Body</div>
+      <div class="type-scale-sample" style="font-family:&#39;DM Sans&#39;;font-size:14px;font-weight:400;color:var(--guide-text2)">Standard paragraph text — 16px minimum on all web surfaces.</div>
+      <div class="type-scale-spec">16px · 400 · 1.8lh</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">Overline</div>
+      <div class="type-scale-sample" style="font-family:&#39;DM Sans&#39;;font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:7px"><span style="width:5px;height:5px;background:var(--teal);border-radius:50%;display:inline-block"></span>The Platform</div>
+      <div class="type-scale-spec">11px · 600 · +1.8px · CAPS</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">Caption</div>
+      <div class="type-scale-sample" style="font-family:&#39;DM Sans&#39;;font-size:11px;font-weight:400;color:var(--guide-text3);letter-spacing:.5px">vs 95% industry average · ERP · Active</div>
+      <div class="type-scale-spec">11–12px · 400 · +0.5px</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">Button</div>
+      <div class="type-scale-sample"><button class="btn-p btn-sm">Explore Aetherion →</button></div>
+      <div class="type-scale-spec">14px · 500 · +0.2px</div>
+    </div>
+    <div class="type-scale-row">
+      <div class="type-scale-label">Nav link</div>
+      <div class="type-scale-sample" style="font-family:&#39;DM Sans&#39;;font-size:11px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--guide-text2)">Platform &nbsp; Agents &nbsp; Capabilities</div>
+      <div class="type-scale-spec">12px · 500 · +0.8px · CAPS</div>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="sub-label">Typography Rules</div>
+  <div style="display:flex;flex-direction:column;gap:0">
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Space Grotesk is display-only</h4><p>H1 through H2 are always Space Grotesk 700. H3 and below are DM Sans. They never occupy the same level or compete.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Tight tracking at display size is mandatory</h4><p>Hero headline must use <code>letter-spacing: -3px to -4px</code>. Loose tracking at 108px looks amateur. This is non-negotiable.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Lora is controlled and intentional</h4><p>Testimonial block only. Pull quotes only. Never more than one or two instances per page. Do not use Lora for headings.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Body copy minimum 16px everywhere</h4><p>Editorial moments (problem section, testimonial) go 17–18px DM Sans 300 weight. Bigger body signals confidence in the writing.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot orange"></div><div class="pointer-content"><h4>Never centre body text or lists</h4><p>Left-align all paragraphs and lists. Centre only hero headlines and the testimonial quote. This is a hard rule.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot orange"></div><div class="pointer-content"><h4>The italic teal "it." in the hero is sacred</h4><p>Space Grotesk 700 italic on <code>it.</code> in teal colour. This references "Run with it." without spelling it out. Do not change the colour, weight, or style.</p></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     3. SPACING & LAYOUT
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section" id="spacing">
+  <div class="section-header">
+    <div class="section-num">03 — Spacing &amp; Layout</div>
+    <h2 class="section-title">Spacing System</h2>
+    <p class="section-desc">An 8px base grid. Consistent rhythm across all sections. Maximum container width of 1120px.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="sub-label">Spacing Scale</div>
+  <div class="spacing-vis" style="margin-bottom:8px">
+    <div class="sp-col"><div class="sp-block" style="height:8px"><div class="sp-val">4</div></div><div class="sp-lbl">4px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:16px"><div class="sp-val">8</div></div><div class="sp-lbl">8px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:24px"><div class="sp-val">12</div></div><div class="sp-lbl">12px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:32px"><div class="sp-val">16</div></div><div class="sp-lbl">16px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:40px"><div class="sp-val">20</div></div><div class="sp-lbl">20px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:48px"><div class="sp-val">24</div></div><div class="sp-lbl">24px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:56px"><div class="sp-val">28</div></div><div class="sp-lbl">28px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:64px"><div class="sp-val">32</div></div><div class="sp-lbl">32px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:80px"><div class="sp-val">40</div></div><div class="sp-lbl">40px</div></div>
+    <div class="sp-col"><div class="sp-block" style="height:96px"><div class="sp-val">48</div></div><div class="sp-lbl">48px</div></div>
+  </div>
+
+  <div class="sub-label" style="margin-top:28px">Layout Structure</div>
+  <table class="spec-table" style="margin-bottom:20px">
+    <thead><tr><th>Element</th><th>Value</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Max container width</td><td>1120px</td><td>Slightly narrower than IBM 1280px — keeps content dense and authoritative</td></tr>
+      <tr><td>Outer margin (desktop)</td><td>80px left/right</td><td>Applied to nav, sections, footer. Never less than 80px on desktop</td></tr>
+      <tr><td>Section padding</td><td>96px top &amp; bottom</td><td>Consistent across all sections — do not reduce for any section</td></tr>
+      <tr><td>Nav height</td><td>68px</td><td>Sticky, always visible, backdrop-filter blur 16px</td></tr>
+      <tr><td>Column grid</td><td>12-column, 24px gutter</td><td>Hero: full width. Features: 6/6. Capabilities: 4/4/4. Agents: 3/3/3/3</td></tr>
+      <tr><td>Card border radius</td><td>12px</td><td>All cards — agent, capability, feature, UI blocks. Nav buttons: 6px</td></tr>
+      <tr><td>Section alternation</td><td>#0F0E2A ↔ #080716</td><td>Dark violet → deeper dark → dark violet. Never two identical backgrounds adjacent</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rule-note">The 1120px max-width is intentional. Wider containers feel like startups. Narrower feels like authority. Do not increase it.</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     4. CURSOR & DOT SYSTEM
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section alt" id="cursor">
+  <div class="section-header">
+    <div class="section-num">04 — Cursor &amp; The Dot</div>
+    <h2 class="section-title">Custom Cursor &amp; Dot System</h2>
+    <p class="section-desc">The teal dot is the heartbeat of the brand. The cursor is its most direct expression — every interaction becomes a brand moment.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="sub-label">Cursor States</div>
+  <div class="cursor-demo" style="margin-bottom:24px">
+    <div class="cursor-state">
+      <div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;position:relative">
+        <div class="c-default"></div>
+        <div class="c-ring"></div>
+      </div>
+      <div class="cursor-label">Default</div>
+      <div style="font-size:11px;color:var(--guide-text3);text-align:center;margin-top:4px">18px dot<br>38px ring<br>ring opacity .45</div>
+    </div>
+    <div style="width:1px;background:var(--guide-border);height:80px"></div>
+    <div class="cursor-state">
+      <div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;position:relative">
+        <div class="c-hover"></div>
+        <div class="c-hover-ring"></div>
+      </div>
+      <div class="cursor-label">Hover</div>
+      <div style="font-size:11px;color:var(--guide-text3);text-align:center;margin-top:4px">28px dot<br>54px ring<br>ring opacity .25</div>
+    </div>
+    <div style="width:1px;background:var(--guide-border);height:80px"></div>
+    <div class="cursor-state">
+      <div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;position:relative">
+        <div class="c-click"></div>
+        <div class="c-ring" style="width:28px;height:28px;opacity:.55"></div>
+      </div>
+      <div class="cursor-label">Click</div>
+      <div style="font-size:11px;color:var(--guide-text3);text-align:center;margin-top:4px">13px dot (scale .7)<br>ring compresses<br>200ms</div>
+    </div>
+    <div style="flex:1;padding:0 20px">
+      <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:8px">Technical spec</div>
+      <table class="token-table">
+        <tbody>
+          <tr><td>Dot size</td><td>18×18px circle</td></tr>
+          <tr><td>Ring size</td><td>38×38px, 1.5px border</td></tr>
+          <tr><td>Colour</td><td>#00C8BE (Teal)</td></tr>
+          <tr><td>Blend mode (dark)</td><td>mix-blend-mode: difference</td></tr>
+          <tr><td>Ring lag</td><td>lerp factor 0.12 per frame</td></tr>
+          <tr><td>Dot transition</td><td>width/height 180ms ease</td></tr>
+          <tr><td>Hover trigger</td><td>a, button, .agent-card, .cap-card</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub-label">The Dot System — Three States</div>
+  <div class="g3" style="margin-bottom:20px">
+    <div style="background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;padding:18px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div style="width:9px;height:9px;background:var(--teal);border-radius:50%;animation:pulse 3s ease-in-out infinite"></div>
+        <div style="font-size:12px;font-weight:600;color:#fff">Resting</div>
+      </div>
+      <div style="font-size:12px;color:var(--guide-text2);line-height:1.6;font-weight:300">The logo dot. Pulses gently at 3-second intervals. scale(1) → scale(1.5) → scale(1). The platform, waiting. Potential energy.</div>
+      <div style="font-size:11px;font-family:&#39;Courier New&#39;,monospace;color:var(--teal);margin-top:10px;background:rgba(0,200,190,.06);padding:6px 10px;border-radius:4px">animation: dp 3s ease-in-out infinite</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;padding:18px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div style="width:12px;height:12px;background:var(--teal);border-radius:50%;animation:trail 2.5s ease-in-out infinite"></div>
+        <style>@keyframes trail{0%{transform:translateX(-10px);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateX(10px);opacity:0}}</style>
+        <div style="font-size:12px;font-weight:600;color:#fff">Moving</div>
+      </div>
+      <div style="font-size:12px;color:var(--guide-text2);line-height:1.6;font-weight:300">Hero "it." trailing dot. Runs across the word on a 2.5s loop. translateX(-12px, opacity 0) → visible → translateX(12px, opacity 0). "Run with it" made visible.</div>
+      <div style="font-size:11px;font-family:&#39;Courier New&#39;,monospace;color:var(--teal);margin-top:10px;background:rgba(0,200,190,.06);padding:6px 10px;border-radius:4px">animation: trail 2.5s ease-in-out infinite</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;padding:18px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div style="width:8px;height:8px;background:var(--teal);border-radius:50%"></div>
+        <div style="font-size:12px;font-weight:600;color:#fff">Arrived</div>
+      </div>
+      <div style="font-size:12px;color:var(--guide-text2);line-height:1.6;font-weight:300">Stat section accent dots. Static 8px teal circle beneath each stat number as it counts up. Outcome delivered. Used for success states, section reveals, proof point landings.</div>
+      <div style="font-size:11px;font-family:&#39;Courier New&#39;,monospace;color:var(--teal);margin-top:10px;background:rgba(0,200,190,.06);padding:6px 10px;border-radius:4px">8px · #00C8BE · static</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Dot as Decoration System</div>
+  <div style="display:flex;flex-direction:column;gap:0">
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Overline dot</h4><p>5–6px teal circle before every overline label. Consistent across all sections. Never skip this.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Dot cluster (hero decoration)</h4><p>Grid of 12–16 dots in teal and violet at varying opacities (.2 to 1). Top-left corner of hero. SVG, not CSS background.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Arc endpoint dots</h4><p>Dashed SVG arc lines in the hero bottom-right corner. Teal and violet dots at the arc endpoints. Opacity .28.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Aetherion travelling dot</h4><p>SVG <code>animateMotion</code> dot travelling the network connection path. 4s loop. Opacity .9. Represents data in motion.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Capability card corner dot</h4><p>8px dot, bottom-right of each capability card. rgba(0,200,190,.3) default → solid teal on hover. 200ms transition.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Footer dot</h4><p>Animated teal dot between footer brand elements. Same 3s pulse as logo dot. Signals "still alive" in the footer.</p></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     5. ICON SYSTEM
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section" id="icons">
+  <div class="section-header">
+    <div class="section-num">05 — Icons</div>
+    <h2 class="section-title">Icon System</h2>
+    <p class="section-desc">Duotone SVG icons. Base in the colour family of the section. Accent in teal. Always inside a coloured wrapper with matching border.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="sub-label">Icon Wrapper Variants</div>
+  <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="iw" style="width:52px;height:52px"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(0,200,190,.15)" stroke="rgba(0,200,190,.4)" stroke-width="1.5"></rect><path d="M7 12h10M7 8h6M7 16h8" stroke="#00C8BE" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+      <div style="font-size:10px;color:var(--guide-text3);text-align:center">Teal<br>44×44px</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="iw v" style="width:52px;height:52px"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" fill="rgba(123,79,224,.15)" stroke="#a78bf5" stroke-width="1.5" stroke-linejoin="round"></path></svg></div>
+      <div style="font-size:10px;color:var(--guide-text3);text-align:center">Violet<br>Platform</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="iw c" style="width:52px;height:52px"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><circle cx="12" cy="12" r="9" fill="rgba(255,61,107,.1)" stroke="rgba(255,61,107,.4)" stroke-width="1.5"></circle><path d="M12 7v5l4 2" stroke="#FF3D6B" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+      <div style="font-size:10px;color:var(--guide-text3);text-align:center">Coral<br>Warning</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="iw a" style="width:52px;height:52px"><svg viewBox="0 0 24 24" fill="none" width="24" height="24"><circle cx="12" cy="8" r="4" fill="rgba(184,131,42,.12)" stroke="#B8832A" stroke-width="1.5"></circle><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#B8832A" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+      <div style="font-size:10px;color:var(--guide-text3);text-align:center">Amber<br>Data</div>
+    </div>
+    <div style="flex:1;padding-left:20px">
+      <table class="spec-table">
+        <thead><tr><th>Property</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Default size</td><td>44×44px wrapper / 22px icon</td></tr>
+          <tr><td>Small size</td><td>36×36px wrapper / 18px icon</td></tr>
+          <tr><td>Border radius</td><td>10px (wrapper)</td></tr>
+          <tr><td>Icon style</td><td>Duotone — fill + stroke</td></tr>
+          <tr><td>Stroke weight</td><td>1.5px at 24px base</td></tr>
+          <tr><td>Corner radius</td><td>2px on all path joins</td></tr>
+          <tr><td>Source library</td><td>Custom SVG / Phosphor base</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub-label">Icon Colour Mapping Rules</div>
+  <table class="spec-table" style="margin-bottom:24px">
+    <thead><tr><th>Context</th><th>Wrapper colour</th><th>Icon stroke</th><th>Used for</th></tr></thead>
+    <tbody>
+      <tr><td>Teal (.iw)</td><td>rgba(0,200,190,.08)</td><td>#00C8BE</td><td>ERP, speed, data, core Calfus features, default</td></tr>
+      <tr><td>Violet (.iw.v)</td><td>rgba(123,79,224,.08)</td><td>#a78bf5</td><td>Platform/AI features, Aetherion nodes, Agent Foundry</td></tr>
+      <tr><td>Coral (.iw.c)</td><td>rgba(255,61,107,.07)</td><td>#FF3D6B</td><td>Warning states, time-sensitive, EPM/planning</td></tr>
+      <tr><td>Amber (.iw.a)</td><td>rgba(184,131,42,.08)</td><td>#B8832A</td><td>HCM/people, data proof, enterprise/legacy</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sub-label">Icon Set — by category</div>
+  <div class="g4" style="gap:12px;margin-bottom:20px">
+    <div class="icon-spec"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(0,200,190,.15)" stroke="rgba(0,200,190,.4)" stroke-width="1.5"></rect><path d="M7 12h10M7 8h6M7 16h8" stroke="#00C8BE" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="icon-spec-name">Oracle ERP</div><div class="icon-spec-usage">ERP workflows, document management</div></div>
+    <div class="icon-spec"><div class="iw v"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M3 9l9-6 9 6v11a1 1 0 01-1 1H4a1 1 0 01-1-1V9z" fill="rgba(123,79,224,.12)" stroke="#a78bf5" stroke-width="1.5"></path></svg></div><div class="icon-spec-name">Supply Chain</div><div class="icon-spec-usage">SCM, logistics, fulfilment</div></div>
+    <div class="icon-spec"><div class="iw a"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><circle cx="12" cy="8" r="4" fill="rgba(184,131,42,.12)" stroke="#B8832A" stroke-width="1.5"></circle><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#B8832A" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="icon-spec-name">HCM / People</div><div class="icon-spec-usage">HR, talent ops, workforce</div></div>
+    <div class="icon-spec"><div class="iw c"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><circle cx="12" cy="12" r="9" fill="rgba(255,61,107,.1)" stroke="rgba(255,61,107,.4)" stroke-width="1.5"></circle><path d="M12 7v5l4 2" stroke="#FF3D6B" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="icon-spec-name">Planning / EPM</div><div class="icon-spec-usage">Budgeting, scenario modelling</div></div>
+    <div class="icon-spec"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M13 3L4 14h8l-1 7 9-11h-8l1-7z" fill="rgba(0,200,190,.12)" stroke="#00C8BE" stroke-width="1.5" stroke-linejoin="round"></path></svg></div><div class="icon-spec-name">Speed / Agent</div><div class="icon-spec-usage">Agent cards, fast deployment</div></div>
+    <div class="icon-spec"><div class="iw v"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" fill="rgba(123,79,224,.12)" stroke="#a78bf5" stroke-width="1.5" stroke-linejoin="round"></path></svg></div><div class="icon-spec-name">Platform</div><div class="icon-spec-usage">Aetherion, platform cards</div></div>
+    <div class="icon-spec"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><rect x="2" y="3" width="20" height="14" rx="2" fill="rgba(0,200,190,.1)" stroke="rgba(0,200,190,.35)" stroke-width="1.5"></rect><path d="M8 21h8M12 17v4" stroke="rgba(0,200,190,.5)" stroke-width="1.5" stroke-linecap="round"></path><path d="M6 9h4v5H6zM12 7h6v7h-6z" fill="rgba(0,200,190,.2)" stroke="#00C8BE" stroke-width="1"></path></svg></div><div class="icon-spec-name">Analytics / BI</div><div class="icon-spec-usage">Data visualisation, dashboards</div></div>
+    <div class="icon-spec"><div class="iw a"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><rect x="4" y="4" width="16" height="16" rx="4" fill="rgba(184,131,42,.1)" stroke="#B8832A" stroke-width="1.3"></rect><path d="M8 12l3 3 5-5" stroke="#B8832A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div class="icon-spec-name">Compliance</div><div class="icon-spec-usage">Audit, governance, regulatory</div></div>
+  </div>
+
+  <div class="rule-note">Use Phosphor Icons (duotone variant) as the base library for any new icons. Match the stroke weight (1.5px) and corner radius (2px) of the existing set. Never use filled/solid icons in this system.</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     6. BUTTONS
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section alt" id="buttons">
+  <div class="section-header">
+    <div class="section-num">06 — Buttons</div>
+    <h2 class="section-title">Button System</h2>
+    <p class="section-desc">Three types. Three sizes. Teal is always the primary action. Violet signals platform intelligence. Secondary and tertiary support without competing.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:24px">
+    <div class="comp-block">
+      <div class="comp-block-label">Primary, Secondary, Tertiary</div>
+      <div class="comp-row">
+        <button class="btn-p">Explore platform <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <button class="btn-s">Talk to us</button>
+        <button class="btn-t">Read more →</button>
+      </div>
+      <div class="comp-row">
+        <button class="btn-v">Violet — Platform</button>
+        <button class="btn-p btn-sm">Small size</button>
+        <button class="btn-p btn-dis">Disabled</button>
+      </div>
+      <div class="rule-note" style="margin-top:12px">Teal = contact/conversion. Violet = platform action. Never use both on the same CTA area.</div>
+    </div>
+    <div>
+      <table class="spec-table">
+        <thead><tr><th>Type</th><th>Background</th><th>Hover</th><th>Font</th></tr></thead>
+        <tbody>
+          <tr><td>Primary</td><td>#00C8BE</td><td>#00A89F</td><td>DM Sans 500, 14px</td></tr>
+          <tr><td>Secondary</td><td>transparent</td><td>rgba(0,200,190,.05)</td><td>DM Sans 500, 14px</td></tr>
+          <tr><td>Tertiary</td><td>none</td><td>gap increase</td><td>DM Sans 500, 14px, teal</td></tr>
+          <tr><td>Violet</td><td>#7B4FE0</td><td>darken 10%</td><td>DM Sans 500, 14px</td></tr>
+        </tbody>
+      </table>
+      <table class="spec-table" style="margin-top:12px">
+        <thead><tr><th>Size</th><th>Padding</th><th>Font size</th></tr></thead>
+        <tbody>
+          <tr><td>Large (hero CTA)</td><td>16px 44px</td><td>15px</td></tr>
+          <tr><td>Regular</td><td>14px 30px</td><td>14px</td></tr>
+          <tr><td>Small</td><td>9px 18px</td><td>12px</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub-label">Segmented Control</div>
+  <div style="margin-bottom:16px">
+    <div class="seg">
+      <button class="seg-btn active">1D</button>
+      <button class="seg-btn">7D</button>
+      <button class="seg-btn">1M</button>
+      <button class="seg-btn">1Y</button>
+      <button class="seg-btn">All</button>
+    </div>
+    <div class="spec-note">8px outer padding · 3px inner padding · 6px gap · 5px inner radius. Active: Teal bg, white text.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     7. TAGS, BADGES & AVATARS
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section" id="tags">
+  <div class="section-header">
+    <div class="section-num">07 — Tags &amp; Badges</div>
+    <h2 class="section-title">Tags, Badges &amp; Avatars</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="sub-label" style="margin-bottom:12px">Tag Variants</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+    <span class="tag"><span class="tag-dot"></span>Agentic AI</span>
+    <span class="tag"><span class="tag-dot"></span>ERP</span>
+    <span class="tag v"><span class="tag-dot"></span>Platform</span>
+    <span class="tag v"><span class="tag-dot"></span>Aetherion</span>
+    <span class="tag c"><span class="tag-dot"></span>Active</span>
+    <span class="tag a"><span class="tag-dot"></span>Oracle</span>
+    <span class="tag">SCM</span>
+    <span class="tag">HCM</span>
+    <span class="tag">EPM</span>
+  </div>
+  <table class="spec-table" style="margin-bottom:24px">
+    <thead><tr><th>Variant</th><th>Background</th><th>Border</th><th>Text colour</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>Teal (default)</td><td>rgba(0,200,190,.08)</td><td>rgba(0,200,190,.2)</td><td>#00C8BE</td><td>Calfus product features, capabilities</td></tr>
+      <tr><td>Violet (.v)</td><td>rgba(123,79,224,.08)</td><td>rgba(123,79,224,.2)</td><td>#a78bf5</td><td>Platform sections, Aetherion</td></tr>
+      <tr><td>Coral (.c)</td><td>rgba(255,61,107,.07)</td><td>rgba(255,61,107,.15)</td><td>#ff6b8e</td><td>Active/live states, urgent signals</td></tr>
+      <tr><td>Amber (.a)</td><td>rgba(184,131,42,.07)</td><td>rgba(184,131,42,.18)</td><td>#d4a855</td><td>Oracle partner, legacy systems</td></tr>
+    </tbody>
+  </table>
+  <div class="spec-note">Tag spec: 11px DM Sans 600 · all-caps · +0.8px letter-spacing · 4px 12px padding · 100px border-radius · 5px dot accent</div>
+
+  <div class="sub-label" style="margin-top:20px">Badges &amp; Avatar Stacks</div>
+  <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="position:relative;display:inline-block">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="rgba(255,255,255,.55)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+        <span class="badge" style="position:absolute;top:-6px;right:-6px">3</span>
+      </div>
+      <span style="font-size:12px;color:var(--guide-text3)">Notification badge</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="av-stack">
+        <div class="av" style="background:var(--teal)">AK</div>
+        <div class="av" style="background:var(--violet)">SR</div>
+        <div class="av" style="background:var(--coral)">MJ</div>
+        <div class="av" style="background:var(--amber)">+4</div>
+      </div>
+      <span style="font-size:12px;color:var(--guide-text3)">Avatar stack</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="live-dot"></span>
+      <span style="font-size:12px;color:var(--guide-text3)">Live indicator — #1A9E6E · 5px · pulse animation</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     8. FORMS & INPUTS
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section alt" id="forms">
+  <div class="section-header">
+    <div class="section-num">08 — Forms &amp; Controls</div>
+    <h2 class="section-title">Forms &amp; Input Controls</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="g2" style="margin-bottom:24px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="field"><label>Company name</label><input type="text" placeholder="e.g. Asurint Inc."></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="field"><label>First name</label><input type="text" placeholder="Alla"></div>
+        <div class="field"><label>Last name</label><input type="text" placeholder="Schay"></div>
+      </div>
+      <div class="field"><label>Message</label><textarea placeholder="How can we help?"></textarea></div>
+      <div class="field field-err"><label>Error state</label><input type="text" value="invalid@email"><span class="field-err-msg">Please enter a valid email address</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div>
+        <div class="sub-label">OTP Input</div>
+        <div class="otp-wrap">
+          <input class="otp-box filled" value="4" maxlength="1">
+          <input class="otp-box filled" value="3" maxlength="1">
+          <input class="otp-box filled" value="2" maxlength="1">
+          <input class="otp-box" placeholder="—" maxlength="1">
+          <input class="otp-box" placeholder="—" maxlength="1">
+          <input class="otp-box" placeholder="—" maxlength="1">
+        </div>
+      </div>
+      <div>
+        <div class="sub-label">Toggle Switches</div>
+        <div style="display:flex;gap:14px;align-items:center">
+          <div class="sw on"><div class="sw-th"></div></div>
+          <div class="sw"><div class="sw-th"></div></div>
+          <div class="sw on" style="opacity:.35"><div class="sw-th"></div></div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--teal);background:var(--teal);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+            <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid rgba(255,255,255,.2)"></div>
+            <div style="width:16px;height:16px;border-radius:50%;border:1.5px solid var(--teal);background:var(--teal);display:flex;align-items:center;justify-content:center"><div style="width:6px;height:6px;border-radius:50%;background:#fff"></div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sub-label">Slider &amp; Progress</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--guide-text2);margin-bottom:6px"><span>Processing speed</span><span style="color:var(--teal)">60%</span></div>
+            <input type="range" min="0" max="100" value="60" style="--val:60%">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--guide-text2)"><span>Deployment speed</span><span>92%</span></div>
+            <div class="prog"><div class="prog-bar" style="width:92%"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--guide-text2)"><span>Cost efficiency</span><span>78%</span></div>
+            <div class="prog"><div class="prog-bar" style="width:78%;background:var(--violet)"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="spec-table">
+    <thead><tr><th>Element</th><th>Spec</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Input height</td><td>44px</td><td>All text inputs, selects. Textarea: 80px min.</td></tr>
+      <tr><td>Input background</td><td>rgba(255,255,255,.04)</td><td>Slightly lighter than page bg — discernible but subtle</td></tr>
+      <tr><td>Border (default)</td><td>1.5px solid rgba(255,255,255,.09)</td><td>Never a hard 1px — 1.5px feels more premium</td></tr>
+      <tr><td>Border (focus)</td><td>1.5px solid #00C8BE</td><td>Teal on focus — immediate, unmistakable</td></tr>
+      <tr><td>Border (error)</td><td>1.5px solid rgba(192,57,43,.6)</td><td>Desaturated coral — urgent but not aggressive</td></tr>
+      <tr><td>Label</td><td>DM Sans 500, 12px</td><td>rgba(255,255,255,.55) — same as --text2</td></tr>
+      <tr><td>Placeholder</td><td>DM Sans 400, 13px</td><td>rgba(255,255,255,.28) — same as --text3</td></tr>
+      <tr><td>Border radius</td><td>6px</td><td>All inputs, selects, textareas</td></tr>
+      <tr><td>OTP box</td><td>40×44px, 8px radius</td><td>Space Grotesk 700 for entered digits</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     9. FEEDBACK & STATUS
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section" id="feedback">
+  <div class="section-header">
+    <div class="section-num">09 — Feedback &amp; Status</div>
+    <h2 class="section-title">Notifications, Toasts &amp; Skeletons</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:24px">
+    <div>
+      <div class="sub-label">Toast Notifications</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="toast ok"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#2dc98e" stroke-width="1.2"></circle><path d="M4.5 7.5l2 2 4-4" stroke="#2dc98e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>Agent deployment successful — 0 failures</div>
+        <div class="toast warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2L1 13h13L7.5 2z" stroke="#e8a830" stroke-width="1.2" stroke-linejoin="round"></path><path d="M7.5 6.5v3M7.5 11v.5" stroke="#e8a830" stroke-width="1.3" stroke-linecap="round"></path></svg>Workflow latency above threshold</div>
+        <div class="toast err"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#e05545" stroke-width="1.2"></circle><path d="M5 5l5 5M10 5l-5 5" stroke="#e05545" stroke-width="1.3" stroke-linecap="round"></path></svg>Integration handshake failed</div>
+        <div class="toast info"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#00C8BE" stroke-width="1.2"></circle><path d="M7.5 6.5v5M7.5 4.5v.5" stroke="#00C8BE" stroke-width="1.3" stroke-linecap="round"></path></svg>Aetherion sync — 13 agents active</div>
+      </div>
+      <div class="spec-note">Toast spec: 11px 15px padding · 8px radius · icon 15px · DM Sans 500 13px · left border NOT used (full bg tint instead)</div>
+    </div>
+    <div>
+      <div class="sub-label">Skeleton Loaders</div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:16px;background:rgba(255,255,255,.03);border:1px solid var(--guide-border);border-radius:10px">
+        <div style="display:flex;gap:10px;align-items:center"><div class="skel" style="width:40px;height:40px;border-radius:50%"></div><div style="flex:1"><div class="skel" style="height:11px;width:55%;margin-bottom:6px"></div><div class="skel" style="height:9px;width:38%"></div></div></div>
+        <div class="skel" style="height:9px"></div>
+        <div class="skel" style="height:9px;width:82%"></div>
+        <div class="skel" style="height:9px;width:65%"></div>
+        <div style="display:flex;gap:8px"><div class="skel" style="height:32px;flex:1;border-radius:6px"></div><div class="skel" style="height:32px;flex:1;border-radius:6px"></div></div>
+      </div>
+      <div class="spec-note">Skeleton: linear-gradient shimmer · 1.5s infinite · 25%/50%/75% positions · 6px border-radius on bars · 50% on avatar circles</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Context Menu</div>
+  <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px">
+    <div class="ctx">
+      <div class="ctx-item"><div style="display:flex;align-items:center;gap:8px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1.5" y="1.5" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.2"></rect><path d="M4 6.5h5M6.5 4v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path></svg>New file</div><kbd>⌘N</kbd></div>
+      <div class="ctx-item"><div style="display:flex;align-items:center;gap:8px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 2h9v9H2zM9 2l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Edit file</div><kbd>⌘E</kbd></div>
+      <div class="ctx-sep"></div>
+      <div class="ctx-item danger"><div style="display:flex;align-items:center;gap:8px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 4h9M5 4V2.5h3V4M10 4l-.5 7H3.5L3 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Delete</div><kbd>⌘⌫</kbd></div>
+    </div>
+    <div style="flex:1;min-width:200px">
+      <table class="spec-table">
+        <tbody>
+          <tr><td>Background</td><td>#0F0E2A</td></tr>
+          <tr><td>Border radius</td><td>10px outer · 6px items</td></tr>
+          <tr><td>Item hover</td><td>rgba(255,255,255,.06)</td></tr>
+          <tr><td>Separator</td><td>1px rgba(255,255,255,.09)</td></tr>
+          <tr><td>Danger text</td><td>#C0392B (error)</td></tr>
+          <tr><td>Keyboard shortcut</td><td>kbd element · 4px radius</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     10. DATA VISUALISATION
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section alt" id="data">
+  <div class="section-header">
+    <div class="section-num">10 — Data Visualisation</div>
+    <h2 class="section-title">Data Viz &amp; Dashboards</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:24px">
+    <div class="comp-block">
+      <div class="comp-block-label">Bar Chart — Impact metrics</div>
+      <div style="font-size:11px;color:var(--guide-text3);margin-bottom:60px">Enterprise transformation impact — indexed</div>
+      <div class="barchart">
+        <div class="bc-col"><div class="bc-val">$220M</div><div class="bc-bar" style="height:100px;background:#00C8BE"></div><div class="bc-lbl">OpEx</div></div>
+        <div class="bc-col"><div class="bc-val">$200M</div><div class="bc-bar" style="height:92px;background:#7B4FE0"></div><div class="bc-lbl">Healthcare</div></div>
+        <div class="bc-col"><div class="bc-val">80%</div><div class="bc-bar" style="height:74px;background:#B8832A"></div><div class="bc-lbl">Root cause</div></div>
+        <div class="bc-col"><div class="bc-val">8×</div><div class="bc-bar" style="height:58px;background:rgba(0,200,190,.45)"></div><div class="bc-lbl">Speed</div></div>
+        <div class="bc-col"><div class="bc-val">0%</div><div class="bc-bar" style="height:10px;background:#1A9E6E"></div><div class="bc-lbl">Failures</div></div>
+      </div>
+    </div>
+    <div class="comp-block">
+      <div class="comp-block-label">Agent Foundry Live Dashboard</div>
+      <div class="dash">
+        <div class="dash-hdr">
+          <span class="dash-t">Agent Foundry — Live Status</span>
+          <div style="display:flex;gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:#FF3D6B"></div><div style="width:8px;height:8px;border-radius:50%;background:#B8832A"></div><div style="width:8px;height:8px;border-radius:50%;background:#1A9E6E"></div></div>
+        </div>
+        <div style="padding:12px 16px">
+          <div class="dm"><span class="dm-n">Finance Agent</span><div style="display:flex;align-items:center;gap:8px"><div class="bw"><div class="bf" style="width:92%;background:#00C8BE"></div></div><span class="dm-v">92%</span><span class="cp">+4%</span></div></div>
+          <div class="dm"><span class="dm-n">Supply Chain</span><div style="display:flex;align-items:center;gap:8px"><div class="bw"><div class="bf" style="width:87%;background:#7B4FE0"></div></div><span class="dm-v">87%</span><span class="cp">+12%</span></div></div>
+          <div class="dm"><span class="dm-n">HR Agent</span><div style="display:flex;align-items:center;gap:8px"><div class="bw"><div class="bf" style="width:74%;background:#B8832A"></div></div><span class="dm-v">74%</span><span class="cn">-2%</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     11. CARDS
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section" id="cards">
+  <div class="section-header">
+    <div class="section-num">11 — Cards</div>
+    <h2 class="section-title">Card Variants</h2>
+    <p class="section-desc">Three card types for three contexts. Light for feature lists on light sections. Dark for platform sections. Image for case studies.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="g3" style="margin-bottom:24px">
+    <div class="card-l">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+        <div class="iw" style="background:rgba(0,200,190,.1);border-color:rgba(0,200,190,.2)"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(0,200,190,.15)" stroke="rgba(0,200,190,.4)" stroke-width="1.5"></rect><path d="M7 12h10M7 8h6M7 16h8" stroke="#00C8BE" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+        <span style="background:rgba(0,200,190,.1);border:1px solid rgba(0,200,190,.2);color:#007570;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:100px">ERP</span>
+      </div>
+      <div style="font-size:16px;font-weight:500;color:#1E2530;margin-bottom:8px;font-family:&#39;Space Grotesk&#39;,sans-serif">Light Card</div>
+      <div style="font-size:13px;color:#8C96A4;line-height:1.65;font-weight:300">White bg · 1px border rgba(0,0,0,.08) · 12px radius · 28px padding. For feature cards on light/white sections.</div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(0,0,0,.07)"><span style="color:#00C8BE;font-size:13px;font-weight:500;cursor:pointer">Read more →</span></div>
+    </div>
+    <div class="card-d">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+        <div class="iw v"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" fill="rgba(123,79,224,.12)" stroke="#a78bf5" stroke-width="1.5" stroke-linejoin="round"></path></svg></div>
+        <span class="tag v" style="font-size:10px;padding:3px 10px">Platform</span>
+      </div>
+      <div style="font-size:16px;font-weight:500;color:#fff;margin-bottom:8px;font-family:&#39;Space Grotesk&#39;,sans-serif">Dark Card</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.65;font-weight:300">#0F0E2A bg · 12px radius · 28px padding. Used on platform, agent, and dark featured sections.</div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)"><span class="btn-t" style="font-size:13px">Read more →</span></div>
+    </div>
+    <div style="border-radius:12px;overflow:hidden;position:relative;min-height:220px;background:linear-gradient(135deg,rgba(123,79,224,.6),rgba(0,200,190,.4))">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,14,42,.92) 100%)"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:20px">
+        <span class="tag" style="margin-bottom:10px;display:inline-flex;font-size:10px">Case Study</span>
+        <div style="font-family:&#39;Space Grotesk&#39;,sans-serif;font-size:17px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:14px">Digital Transformation</div>
+        <button class="btn-s" style="font-size:12px;padding:8px 18px;border-color:rgba(255,255,255,.3);color:#fff">Learn more</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent & Cap cards -->
+  <div class="sub-label">Agent Card</div>
+  <div class="g4" style="margin-bottom:16px">
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),transparent)"></div>
+      <div class="iw" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(0,200,190,.15)" stroke="rgba(0,200,190,.4)" stroke-width="1.5"></rect><path d="M7 12h10M7 8h6M7 16h8" stroke="#00C8BE" stroke-width="1.3" stroke-linecap="round"></path></svg></div>
+      <div style="font-size:13px;font-weight:500;color:#fff;margin-bottom:4px">Finance Agent</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.38);line-height:1.5">ERP workflows, reconciliation</div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 16px">
+      <div class="iw v" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M3 9l9-6 9 6v11a1 1 0 01-1 1H4a1 1 0 01-1-1V9z" fill="rgba(123,79,224,.12)" stroke="#a78bf5" stroke-width="1.5"></path></svg></div>
+      <div style="font-size:13px;font-weight:500;color:#fff;margin-bottom:4px">Supply Chain</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.38);line-height:1.5">SCM intelligence, demand signals</div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 16px">
+      <div class="iw a" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><circle cx="12" cy="8" r="4" fill="rgba(184,131,42,.12)" stroke="#B8832A" stroke-width="1.5"></circle><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#B8832A" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+      <div style="font-size:13px;font-weight:500;color:#fff;margin-bottom:4px">HR Agent</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.38);line-height:1.5">HCM automation, talent ops</div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 16px">
+      <div class="iw c" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><circle cx="12" cy="12" r="9" fill="rgba(255,61,107,.1)" stroke="rgba(255,61,107,.4)" stroke-width="1.5"></circle><path d="M12 7v5l4 2" stroke="#FF3D6B" stroke-width="1.3" stroke-linecap="round"></path></svg></div>
+      <div style="font-size:13px;font-weight:500;color:#fff;margin-bottom:4px">Planning Agent</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.38);line-height:1.5">EPM, budgeting, scenario modelling</div>
+    </div>
+  </div>
+  <div class="spec-note">Agent card: surface bg · 1px border · 12px radius · hover: rgba(0,200,190,.05) bg + rgba(0,200,190,.25) border + translateY(-3px) + top 2px gradient appears</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     12. NAVIGATION & WAYFINDING
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section alt" id="navigation">
+  <div class="section-header">
+    <div class="section-num">12 — Navigation &amp; Wayfinding</div>
+    <h2 class="section-title">Navigation Components</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:24px">
+    <div>
+      <div class="sub-label">Breadcrumb</div>
+      <div class="breadcrumb" style="margin-bottom:20px">
+        <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#">Home</a>
+        <span style="color:rgba(255,255,255,.28)">/</span>
+        <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#">Platform</a>
+        <span style="color:rgba(255,255,255,.28)">/</span>
+        <a href="file:///C:/Users/ashwi/Downloads/calfus-visual-guide-v4.html#">Aetherion</a>
+        <span style="color:rgba(255,255,255,.28)">/</span>
+        <span style="color:var(--teal)">Overview</span>
+      </div>
+
+      <div class="sub-label">Keyboard Shortcuts</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.55)"><span>New agent</span><div style="display:flex;gap:4px"><kbd>⌘</kbd><kbd>N</kbd></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.55)"><span>Run deployment</span><div style="display:flex;gap:4px"><kbd>⌘</kbd><kbd>↵</kbd></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.55)"><span>Search</span><div style="display:flex;gap:4px"><kbd>⌘</kbd><kbd>K</kbd></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sub-label">Process Flow</div>
+      <div class="pflow" style="margin-bottom:12px">
+        <div class="pf-step"><div class="pf-circle active">01</div><div class="pf-lbl">Discover<br>&amp; Define</div></div>
+        <div class="pf-step"><div class="pf-circle active">02</div><div class="pf-lbl">Platform<br>Setup</div></div>
+        <div class="pf-step"><div class="pf-circle active">03</div><div class="pf-lbl">Agent<br>Deploy</div></div>
+        <div class="pf-step"><div class="pf-circle">04</div><div class="pf-lbl">Optimise<br>&amp; Scale</div></div>
+        <div class="pf-step"><div class="pf-circle">05</div><div class="pf-lbl">Outcomes<br>Delivered</div></div>
+      </div>
+      <div class="spec-note">Active steps: teal fill, white text. Inactive: teal border 1.5px, teal text. Connector line: rgba(0,200,190,.22), 1px, at y=18px from top.</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Scroll Cue</div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+    <div style="width:40px;height:1px;background:rgba(255,255,255,.28);position:relative;overflow:hidden"><div style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--teal);animation:scan 2s ease-in-out infinite"></div></div>
+    <style>@keyframes scan{0%{left:-100%}100%{left:100%}}</style>
+    <span style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.28);font-weight:500">scroll</span>
+  </div>
+  <div class="spec-note">Positioned bottom-left, 36px from bottom. 40px animated line (teal scanning animation) + "scroll" label. Fades in at 800ms delay after load. Disappears once user scrolls past hero.</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     13. MOTION SYSTEM
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section" id="motion">
+  <div class="section-header">
+    <div class="section-num">13 — Motion</div>
+    <h2 class="section-title">Motion System</h2>
+    <p class="section-desc">Every animation has a job. Nothing moves for decoration. If removing an animation makes the page worse to understand — it stays. If it just "looks cool" — it goes.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="sub-label">Duration Scale</div>
+  <div style="background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;padding:4px 16px;margin-bottom:24px">
+    <div class="motion-row"><div class="motion-name">Instant</div><div class="motion-bar-wrap"><div class="motion-bar" style="width:5%"></div></div><div class="motion-val">100ms</div><div class="motion-use">Hover colour changes, active states, cursor</div></div>
+    <div class="motion-row"><div class="motion-name">Fast</div><div class="motion-bar-wrap"><div class="motion-bar" style="width:10%"></div></div><div class="motion-val">200ms</div><div class="motion-use">Button states, icon swaps, toggles</div></div>
+    <div class="motion-row"><div class="motion-name">Medium</div><div class="motion-bar-wrap"><div class="motion-bar" style="width:18%"></div></div><div class="motion-val">300ms</div><div class="motion-use">Card hovers, dropdowns, tooltips</div></div>
+    <div class="motion-row"><div class="motion-name">Slow</div><div class="motion-bar-wrap"><div class="motion-bar" style="width:30%"></div></div><div class="motion-val">500ms</div><div class="motion-use">Section entrances, modal</div></div>
+    <div class="motion-row"><div class="motion-name">XSlow</div><div class="motion-bar-wrap"><div class="motion-bar" style="width:50%"></div></div><div class="motion-val">800ms</div><div class="motion-use">Hero animations, large visual transitions</div></div>
+  </div>
+
+  <div class="sub-label">Easing Curves</div>
+  <div class="g2" style="margin-bottom:24px">
+    <div style="background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;padding:16px 18px">
+      <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px">Entrance</div>
+      <div style="font-family:&#39;Courier New&#39;,monospace;font-size:11px;color:var(--teal);margin-bottom:8px">cubic-bezier(0.0, 0.0, 0.2, 1)</div>
+      <div style="font-size:12px;color:var(--guide-text2);font-weight:300;line-height:1.6">Fast start, gentle settle. Elements coming in — hero cards, section reveals, modal appears. Feels like things arrive with purpose.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--guide-border);border-radius:10px;padding:16px 18px">
+      <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px">Exit</div>
+      <div style="font-family:&#39;Courier New&#39;,monospace;font-size:11px;color:var(--teal);margin-bottom:8px">cubic-bezier(0.4, 0.0, 1, 1)</div>
+      <div style="font-size:12px;color:var(--guide-text2);font-weight:300;line-height:1.6">Quick and clean. Elements leaving — modal dismiss, dropdown close, page transitions. Never lingers. Gets out of the way.</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Scroll Reveal Rules</div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:20px">
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Fade up from 24px</h4><p>All scroll-triggered elements: <code>opacity: 0 → 1</code> and <code>translateY(24px → 0)</code>. Duration 600ms, entrance easing.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Trigger at 8% viewport</h4><p>IntersectionObserver threshold 0.08. Element begins animating when 8% of it is in view. Not too early, not too late.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot"></div><div class="pointer-content"><h4>Stagger siblings at 80ms</h4><p>Grid children stagger: d1=80ms, d2=160ms, d3=240ms, d4=320ms delay. Groups feel like they arrive together, not all at once.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot orange"></div><div class="pointer-content"><h4>No parallax. Ever.</h4><p>The spec is explicit: no parallax. It's decorative, hurts performance, causes motion sickness, and is impossible to make accessible.</p></div></div>
+    <div class="pointer-item"><div class="pointer-dot orange"></div><div class="pointer-content"><h4>No auto-playing carousels</h4><p>If content moves on its own without user intent — remove it. The marquee is the one exception because it is purely additive ticker content, not primary content.</p></div></div>
+  </div>
+
+  <div class="sub-label">Specific Animation Specs</div>
+  <table class="spec-table">
+    <thead><tr><th>Element</th><th>Animation</th><th>Duration</th><th>Job</th></tr></thead>
+    <tbody>
+      <tr><td>Logo dot</td><td>scale(1) → scale(1.5) → scale(1)</td><td>3s infinite</td><td>"We are alive"</td></tr>
+      <tr><td>Hero "it." dot</td><td>translateX(-12px, opacity 0) → visible → translateX(12px, opacity 0)</td><td>2.5s infinite</td><td>"We are moving"</td></tr>
+      <tr><td>Floating cards</td><td>translateY(0) → translateY(-14px) · rotate(-2° → -1°)</td><td>6s / 7s / 8s infinite</td><td>Depth — different speeds create z-layers</td></tr>
+      <tr><td>Hero rings</td><td>rotate(0 → 360deg) continuous</td><td>22s / 32s</td><td>Ambient energy, never distracting</td></tr>
+      <tr><td>Aetherion dot</td><td>animateMotion along path</td><td>4s infinite</td><td>"Data flows through the platform"</td></tr>
+      <tr><td>Node pulse</td><td>r: 5 → 7 → 5</td><td>2s infinite</td><td>Nodes are alive and processing</td></tr>
+      <tr><td>Stats count-up</td><td>0 → target value</td><td>1200ms</td><td>Numbers landing = proof arriving</td></tr>
+      <tr><td>Cursor ring</td><td>lerp 0.12 per frame</td><td>continuous</td><td>Fast dot + slow ring = speed + precision</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     14. DO / DON'T
+═══════════════════════════════════════════════════════════ -->
+<section class="guide-section alt" id="dos">
+  <div class="section-header">
+    <div class="section-num">14 — Do / Don't</div>
+    <h2 class="section-title">Usage Rules</h2>
+    <p class="section-desc">The most important rules for keeping the system coherent as the team expands it.</p>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="do-dont" style="margin-bottom:24px">
+    <div class="do-col">
+      <h4>✓ DO</h4>
+      <div class="do-item">Use Teal only on interactive elements — buttons, CTAs, active states, the cursor, and data highlights. It earns its meaning.</div>
+      <div class="do-item">Use Space Grotesk 700 for all H1–H2 display headings. This is the only acceptable heading font.</div>
+      <div class="do-item">Lead with outcomes in copy — "deployed in 2.3s" not "we have a fast deployment pipeline".</div>
+      <div class="do-item">Maintain 96px section padding top and bottom on all sections. Never reduce.</div>
+      <div class="do-item">Use the dot — in overlines, on the logo, as accent in stats, on hover states. It's the most ownable brand element.</div>
+      <div class="do-item">Left-align all body text and lists. Centre only hero headlines and the testimonial quote.</div>
+      <div class="do-item">Use DM Sans 300 weight for body copy. 400 for UI. 500 for labels and buttons.</div>
+      <div class="do-item">Apply scroll reveals on all content sections. Never let things just "be there" without a moment of arrival.</div>
+    </div>
+    <div class="dont-col">
+      <h4>✕ DON'T</h4>
+      <div class="dont-item">Use Teal as a background colour, texture, or decorative fill. Teal belongs to actions and the dot only.</div>
+      <div class="dont-item">Use Violet on buttons. Violet is for intelligence/platform moments — not conversion actions.</div>
+      <div class="dont-item">Use Amber on body text or buttons. It is a data/proof accent colour. One context only.</div>
+      <div class="dont-item">Mix Space Grotesk with any other serif or display typeface on the same page. No exceptions.</div>
+      <div class="dont-item">Add parallax effects. The spec is explicit. They're decorative, bad for performance, and inaccessible.</div>
+      <div class="dont-item">Use Coral more than once or twice per page. Its rarity is the source of its impact.</div>
+      <div class="dont-item">Centre paragraphs, bullet lists, or body copy blocks. Centre is for headlines and quotes only.</div>
+      <div class="dont-item">Change the #0F0E2A deep violet-black to navy. Navy reads "IT services 2018." The violet-black is deliberate.</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Colour Usage Quick Reference</div>
+  <table class="spec-table">
+    <thead><tr><th>Colour</th><th>Use for</th><th>Never use for</th></tr></thead>
+    <tbody>
+      <tr><td>Teal #00C8BE</td><td>Buttons, CTAs, links, active states, cursor, logo dot, overline dots</td><td>Backgrounds, decorative fills, body text, section colour</td></tr>
+      <tr><td>Violet #7B4FE0</td><td>Aetherion nodes, platform section accents, violet button variant</td><td>Primary CTAs, form borders, headings, body text</td></tr>
+      <tr><td>Coral #FF3D6B</td><td>Warning/error states, one agent icon, one capability card. 1–2 instances maximum per page</td><td>More than 2 uses per page, headings, backgrounds, buttons</td></tr>
+      <tr><td>Amber #B8832A</td><td>Stat number units (%, ×), data viz bar 3, data proof moments</td><td>Buttons, headings, body text, UI borders, decorative use</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FOOTER -->
+<div style="padding:32px 40px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between">
+  <div style="display:flex;align-items:center;gap:10px">
+    <div style="width:7px;height:7px;background:var(--teal);border-radius:50%;animation:pulse 3s ease-in-out infinite"></div>
+    <span style="font-family:&#39;Space Grotesk&#39;,sans-serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:-.3px">Calfus Visual Guide</span>
+  </div>
+  <div style="font-size:12px;color:rgba(255,255,255,.25)">Version 4 — Selected for development · Confidential</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.25)">Space Grotesk + DM Sans + Lora · #00C8BE · #0F0E2A</div>
+</div>
+
+<script>
+// Segmented control interactivity
+document.querySelectorAll('.seg-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.closest('.seg').querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+// Switch interactivity
+document.querySelectorAll('.sw').forEach(sw => {
+  sw.addEventListener('click', function() { this.classList.toggle('on'); });
+});
+</script>
+
+
+</body></html>
