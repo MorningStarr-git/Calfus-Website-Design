@@ -1,0 +1,848 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --teal:#00C8BE;--teal-d:#00A89F;
+  --violet:#7B4FE0;--coral:#FF3D6B;--amber:#B8832A;
+  --success:#1A9E6E;--error:#C0392B;
+  --bg:#0F0E2A;--bg2:#080716;
+  --sur:rgba(255,255,255,0.045);
+  --bdr:rgba(255,255,255,0.09);
+  --t1:#ffffff;--t2:rgba(255,255,255,0.55);--t3:rgba(255,255,255,0.28);
+  --vd:#0F0E2A;
+  --fc-shd:0 8px 40px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.07);
+  --cd-shd:0 2px 12px rgba(0,0,0,0.3);
+  --nl:#00C8BE;--nline:rgba(0,200,190,0.28);--nstroke:#7B4FE0;--ntxt:rgba(255,255,255,0.45);
+}
+[data-theme="light"]{
+  --bg:#F7F5F0;--bg2:#ffffff;
+  --sur:rgba(26,47,94,0.04);
+  --bdr:rgba(26,47,94,0.1);
+  --t1:#1A2F5E;--t2:#4a5a72;--t3:#8C96A4;
+  --vd:#1A2F5E;
+  --fc-shd:0 12px 44px rgba(26,47,94,0.13),0 2px 8px rgba(26,47,94,0.07);
+  --cd-shd:0 4px 20px rgba(26,47,94,0.1);
+  --nline:rgba(0,200,190,0.55);--nstroke:#5B3AB7;--ntxt:rgba(26,47,94,0.6);
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;cursor:none;transition:background .4s,color .4s}
+.grotesk{font-family:'Space Grotesk',sans-serif}
+
+/* CURSOR */
+#cur{position:fixed;width:18px;height:18px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .18s,height .18s;mix-blend-mode:difference}
+#cur-ring{position:fixed;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--teal);pointer-events:none;z-index:99998;transform:translate(-50%,-50%);opacity:.45;transition:width .2s,height .2s}
+
+/* GRID / DOT BG */
+.grid-bg{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--bdr) 1px,transparent 1px),linear-gradient(90deg,var(--bdr) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 10%,transparent 100%);mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 10%,transparent 100%)}
+.dot-bg{position:absolute;inset:0;z-index:0;background-image:radial-gradient(circle,var(--bdr) 1.5px,transparent 1.5px);background-size:30px 30px;-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 5%,transparent 75%);mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 5%,transparent 75%)}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 72px;height:68px;background:var(--bg);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:500;transition:background .4s,border-color .4s}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;color:var(--t1);text-decoration:none;letter-spacing:-.5px;display:flex;align-items:center;gap:1px}
+.logo-dot{width:9px;height:9px;background:var(--teal);border-radius:50%;display:inline-block;margin:0 1px 7px;animation:dp 3s ease-in-out infinite}
+@keyframes dp{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;color:var(--t2);text-decoration:none;letter-spacing:.8px;text-transform:uppercase;transition:color .2s;font-family:'DM Sans',sans-serif}
+.nav-links a:hover{color:var(--teal)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.theme-tog{display:flex;align-items:center;gap:8px;background:var(--sur);border:1px solid var(--bdr);border-radius:100px;padding:6px 14px;cursor:none;font-size:11px;font-weight:500;color:var(--t2);transition:all .2s;user-select:none;font-family:'DM Sans',sans-serif}
+.theme-tog:hover{border-color:var(--teal);color:var(--teal)}
+.tog-track{width:30px;height:17px;background:var(--bdr);border-radius:100px;position:relative;transition:background .3s}
+.tog-track.on{background:var(--teal)}
+.tog-thumb{width:11px;height:11px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .3s}
+.tog-track.on .tog-thumb{transform:translateX(13px)}
+.btn-nav{background:var(--teal);color:#fff;font-size:12px;font-weight:500;padding:9px 20px;border-radius:6px;text-decoration:none;border:none;cursor:none;transition:background .2s;display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif}
+.btn-nav:hover{background:var(--teal-d)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px 80px 80px;text-align:center}
+.hero-glow{position:absolute;inset:0;z-index:0}
+.hero-glow-dark{background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(123,79,224,.3) 0%,rgba(0,200,190,.09) 45%,transparent 70%),radial-gradient(ellipse 40% 40% at 85% 75%,rgba(255,61,107,.07) 0%,transparent 60%)}
+[data-theme="light"] .hero-glow-dark{background:radial-gradient(ellipse 70% 55% at 50% 38%,rgba(0,200,190,.08) 0%,rgba(123,79,224,.04) 50%,transparent 80%)}
+.hero-content{position:relative;z-index:3;max-width:900px}
+.overline{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--teal);margin-bottom:24px;font-family:'DM Sans',sans-serif}
+.overline-dot{width:5px;height:5px;background:var(--teal);border-radius:50%;animation:dp 2s infinite}
+.hero-h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(56px,9vw,114px);line-height:.95;letter-spacing:-4px;font-weight:700;color:var(--t1);margin-bottom:16px}
+.hero-h1 .it{color:var(--teal)}
+.dot-trail{display:inline-block;width:13px;height:13px;background:var(--teal);border-radius:50%;vertical-align:middle;margin-left:2px;animation:tr 2.5s ease-in-out infinite}
+@keyframes tr{0%{transform:translateX(-12px);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateX(14px);opacity:0}}
+.hero-sub{font-size:clamp(17px,2.2vw,24px);color:var(--t2);margin-bottom:32px;line-height:1.4;font-weight:300;font-style:italic}
+.hero-body{font-size:16px;line-height:1.85;color:var(--t2);max-width:520px;margin:0 auto 40px;font-weight:300}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* VEC RINGS */
+.vring{position:absolute;border-radius:50%;pointer-events:none;border:1px solid rgba(0,200,190,.1);animation:vrot linear infinite}
+[data-theme="light"] .vring{border-color:rgba(0,200,190,.15)}
+@keyframes vrot{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* FLOATING CARDS — proper rotation + shadow */
+.fc{position:absolute;z-index:2;background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;padding:14px 18px;box-shadow:var(--fc-shd);transition:background .4s,box-shadow .4s,border-color .4s}
+.fc1{top:20%;left:2%;animation:fc1a 6s ease-in-out infinite}
+.fc2{top:25%;right:2%;animation:fc2a 7s ease-in-out infinite}
+.fc3{bottom:16%;left:5%;animation:fc1a 8s ease-in-out infinite 1s}
+.fc4{bottom:20%;right:4%;animation:fc2a 6.5s ease-in-out infinite .5s}
+@keyframes fc1a{0%,100%{transform:rotate(-2.5deg) translateY(0)}50%{transform:rotate(-1.2deg) translateY(-15px)}}
+@keyframes fc2a{0%,100%{transform:rotate(3deg) translateY(0)}50%{transform:rotate(1.8deg) translateY(-19px)}}
+.fc-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:5px;display:flex;align-items:center;gap:5px;font-weight:500;font-family:'DM Sans',sans-serif}
+.fc-val{font-size:20px;font-weight:700;color:var(--t1);line-height:1;font-family:'Space Grotesk',sans-serif}
+.fc-sub{font-size:11px;color:var(--t3);margin-top:3px;font-family:'DM Sans',sans-serif}
+.live-dot{width:5px;height:5px;background:var(--success);border-radius:50%;display:inline-block;animation:dp 1.5s infinite}
+.bw{width:68px;height:3px;background:var(--bdr);border-radius:2px;overflow:hidden}
+.bf{height:100%;border-radius:2px}
+.cp{font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(26,158,110,.12);color:#2dc98e;font-family:'DM Sans',sans-serif}
+.cn{font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(192,57,43,.1);color:#e05545;font-family:'DM Sans',sans-serif}
+
+/* MARQUEE */
+.mq-wrap{overflow:hidden;padding:17px 0;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);background:var(--sur);transition:background .4s,border-color .4s}
+.mq-inner{display:flex;animation:mq 26s linear infinite;width:max-content}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq-item{display:flex;align-items:center;gap:10px;padding:0 44px;font-size:12px;font-weight:500;letter-spacing:.5px;color:var(--t3);white-space:nowrap;border-right:1px solid var(--bdr);font-family:'DM Sans',sans-serif}
+.mq-dot{width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0}
+
+/* BUTTONS */
+.btn-p{background:var(--teal);color:#fff;font-size:14px;font-weight:500;padding:14px 30px;border-radius:6px;border:none;cursor:none;text-decoration:none;transition:background .2s,transform .15s;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+.btn-p:hover{background:var(--teal-d);transform:translateY(-1px)}
+.btn-s{background:transparent;border:1.5px solid var(--bdr);color:var(--t1);font-size:14px;font-weight:500;padding:14px 30px;border-radius:6px;cursor:none;text-decoration:none;transition:border-color .2s,background .2s;font-family:'DM Sans',sans-serif}
+.btn-s:hover{border-color:var(--teal);background:rgba(0,200,190,.05)}
+.btn-t{background:transparent;border:none;color:var(--teal);font-size:13px;font-weight:500;cursor:none;text-decoration:none;display:inline-flex;align-items:center;gap:5px;padding:0;transition:gap .2s;font-family:'DM Sans',sans-serif}
+.btn-t:hover{gap:10px}
+.btn-vio{background:var(--violet);color:#fff;font-size:14px;font-weight:500;padding:14px 30px;border-radius:6px;border:none;cursor:none;text-decoration:none;transition:opacity .2s;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+.btn-vio:hover{opacity:.88}
+
+/* SECTIONS */
+section{padding:88px 80px;position:relative;overflow:hidden;transition:background .4s}
+.s-over{font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+.s-over::before{content:'';width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0}
+.s-h{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4.5vw,54px);line-height:1.05;letter-spacing:-2px;font-weight:700;color:var(--t1);margin-bottom:16px}
+.s-sub{font-size:16px;line-height:1.85;color:var(--t2);max-width:500px;font-weight:300}
+
+/* EDITORIAL */
+.editorial{background:var(--bg2);padding:88px 80px;transition:background .4s}
+.ed-h{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,5.5vw,66px);line-height:1.02;letter-spacing:-3px;font-weight:700;color:var(--t1);margin-bottom:24px;max-width:660px}
+.ed-body{font-size:17px;line-height:1.85;color:var(--t2);max-width:600px;margin-bottom:44px;font-weight:300}
+.ed-rule{width:100%;height:1.5px;background:var(--violet);opacity:.5}
+.ed-row{display:grid;grid-template-columns:1fr 1fr;gap:56px;padding:28px 0;border-bottom:1px solid var(--bdr);align-items:start}
+.ed-row:last-child{border-bottom:none}
+.ed-rt{font-size:18px;font-weight:600;color:var(--t1);font-family:'Space Grotesk',sans-serif;letter-spacing:-.5px}
+.ed-rd{font-size:15px;color:var(--t2);line-height:1.78;font-weight:300}
+
+/* PLATFORM */
+.aether-viz{position:relative;height:375px;border:1px solid var(--bdr);border-radius:16px;overflow:hidden;transition:border-color .4s}
+.aether-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--bdr) 1px,transparent 1px),linear-gradient(90deg,var(--bdr) 1px,transparent 1px);background-size:28px 28px;opacity:.55;transition:opacity .4s}
+[data-theme="light"] .aether-grid-bg{opacity:.8}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border-radius:16px;overflow:hidden;background:var(--bdr)}
+.stat-cell{background:var(--bg2);padding:48px 32px;text-align:center;transition:background .4s}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:60px;line-height:1;letter-spacing:-3px;font-weight:700;color:var(--t1);margin-bottom:8px}
+.stat-num em{color:var(--amber);font-style:normal}
+.stat-lbl{font-size:13px;color:var(--t2);letter-spacing:.2px;font-weight:400}
+.stat-note{font-size:11px;color:var(--teal);margin-top:5px;letter-spacing:.5px;font-weight:500}
+
+/* ICON WRAPS */
+.iw{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:rgba(0,200,190,.08);border:1px solid rgba(0,200,190,.18);border-radius:10px;flex-shrink:0}
+.iw.v{background:rgba(123,79,224,.08);border-color:rgba(123,79,224,.2)}
+.iw.c{background:rgba(255,61,107,.07);border-color:rgba(255,61,107,.15)}
+.iw.a{background:rgba(184,131,42,.08);border-color:rgba(184,131,42,.18)}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:5px;background:rgba(0,200,190,.08);border:1px solid rgba(0,200,190,.2);color:var(--teal);font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:4px 13px;border-radius:100px;font-family:'DM Sans',sans-serif}
+.tag.v{background:rgba(123,79,224,.08);border-color:rgba(123,79,224,.2);color:#9b7ef0}
+.tag.c{background:rgba(255,61,107,.07);border-color:rgba(255,61,107,.15);color:#ff6b8e}
+.tag.a{background:rgba(184,131,42,.07);border-color:rgba(184,131,42,.18);color:#c49830}
+.tag-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* CARDS */
+.card-l{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:26px;transition:all .2s}
+.card-l:hover{transform:translateY(-3px);box-shadow:var(--cd-shd)}
+.card-d{background:var(--vd);border-radius:12px;padding:26px;transition:background .4s}
+[data-theme="light"] .card-d{background:#1A2F5E}
+
+/* AGENT CARDS */
+.agent-card{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:20px 16px;cursor:none;transition:all .2s;position:relative;overflow:hidden}
+.agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),transparent);opacity:0;transition:opacity .3s}
+.agent-card:hover{background:rgba(0,200,190,.05);border-color:rgba(0,200,190,.28);transform:translateY(-3px)}
+.agent-card:hover::before{opacity:1}
+
+/* CAP CARDS */
+.cap-card{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:28px 24px;transition:all .2s;position:relative}
+.cap-card:hover{background:rgba(0,200,190,.04);border-color:rgba(0,200,190,.22)}
+.cap-card::after{content:'';position:absolute;bottom:16px;right:16px;width:6px;height:6px;background:rgba(0,200,190,.3);border-radius:50%;transition:background .2s}
+.cap-card:hover::after{background:var(--teal)}
+
+/* DASH */
+.dash{background:var(--sur);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:all .4s}
+.dash-hdr{padding:13px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.dash-t{font-size:12px;font-weight:500;color:var(--t2);font-family:'DM Sans',sans-serif}
+.dd{width:8px;height:8px;border-radius:50%}
+.dm{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.03)}
+.dm:last-child{border:none}
+.dm-n{font-size:12px;color:var(--t2);font-family:'DM Sans',sans-serif}
+.dm-v{font-size:13px;font-weight:600;color:var(--t1);font-family:'Space Grotesk',sans-serif}
+
+/* TESTIMONIAL */
+.tq{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,2.8vw,36px);line-height:1.42;letter-spacing:-1px;font-weight:500;color:var(--t1);max-width:720px;margin:0 auto 40px}
+.tq::before{content:'\201C';color:var(--teal);font-size:1.1em}
+.tq::after{content:'\201D';color:var(--teal);font-size:1.1em}
+
+/* UI SYSTEM */
+.ui-blk{background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;padding:22px;transition:all .4s}
+.ui-blk-title{font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--bdr);font-weight:500;font-family:'DM Sans',sans-serif}
+
+/* TOASTS */
+.toast{display:flex;align-items:center;gap:10px;padding:11px 15px;border-radius:8px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif}
+.toast.ok{background:rgba(26,158,110,.09);border:1px solid rgba(26,158,110,.2);color:#2dc98e}
+.toast.warn{background:rgba(212,132,10,.08);border:1px solid rgba(212,132,10,.18);color:#e8a830}
+.toast.err{background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.18);color:#e05545}
+.toast.info{background:rgba(0,200,190,.07);border:1px solid rgba(0,200,190,.18);color:var(--teal)}
+
+/* FORM */
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;font-weight:500;color:var(--t2);font-family:'DM Sans',sans-serif}
+.field input,.field textarea{height:44px;background:var(--sur);border:1.5px solid var(--bdr);border-radius:6px;color:var(--t1);font-size:13px;font-family:'DM Sans',sans-serif;padding:0 13px;outline:none;transition:border-color .2s,background .4s;width:100%}
+.field input:focus{border-color:var(--teal)}
+.field input::placeholder{color:var(--t3)}
+.field textarea{height:76px;padding:11px 13px;resize:none}
+[data-theme="light"] .field input,[data-theme="light"] .field textarea{background:#fff}
+
+/* SWITCHES */
+.sw{width:34px;height:19px;border-radius:100px;background:var(--bdr);position:relative;cursor:none;transition:background .3s}
+.sw.on{background:var(--teal)}
+.sw-th{width:13px;height:13px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .3s}
+.sw.on .sw-th{transform:translateX(15px)}
+
+/* SLIDER */
+input[type=range]{width:100%;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--teal) var(--val,60%),var(--bdr) var(--val,60%));outline:none;cursor:none;-webkit-appearance:none;appearance:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--teal);cursor:none;border:2px solid var(--bg2)}
+
+/* PROGRESS */
+.prog{background:var(--bdr);border-radius:100px;height:5px;overflow:hidden}
+.prog-bar{height:100%;border-radius:100px;background:var(--teal);transition:width .6s ease}
+
+/* SEGMENTED */
+.seg{display:inline-flex;background:var(--sur);border:1px solid var(--bdr);border-radius:8px;padding:3px;gap:2px}
+.seg-btn{padding:6px 13px;border-radius:5px;font-size:12px;font-weight:500;color:var(--t2);cursor:none;border:none;background:transparent;transition:all .2s;font-family:'DM Sans',sans-serif}
+.seg-btn.active{background:var(--teal);color:#fff}
+
+/* OTP */
+.otp-wrap{display:flex;gap:7px}
+.otp-box{width:40px;height:43px;text-align:center;background:var(--sur);border:1.5px solid var(--bdr);border-radius:8px;color:var(--t1);font-size:16px;font-weight:600;outline:none;transition:border-color .2s;font-family:'Space Grotesk',sans-serif}
+.otp-box.filled,.otp-box:focus{border-color:var(--teal)}
+[data-theme="light"] .otp-box{background:#fff}
+
+/* SKELETON */
+.skel{background:linear-gradient(90deg,var(--bdr) 25%,var(--sur) 50%,var(--bdr) 75%);background-size:200% 100%;border-radius:6px;animation:sk 1.5s ease-in-out infinite}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* AVATAR */
+.av-stack{display:flex}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--bg2);margin-left:-7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;font-family:'Space Grotesk',sans-serif}
+.av:first-child{margin-left:0}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--coral);color:#fff;font-size:9px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+
+/* BREADCRUMB */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t3);font-family:'DM Sans',sans-serif}
+.breadcrumb a{color:var(--t2);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--teal)}
+
+/* KBD */
+kbd{display:inline-flex;align-items:center;padding:2px 7px;background:var(--sur);border:1px solid var(--bdr);border-radius:4px;font-size:11px;font-family:'DM Sans',sans-serif;color:var(--t2)}
+
+/* PROCESS FLOW */
+.pflow{display:flex;align-items:flex-start;gap:0}
+.pf-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
+.pf-step:not(:last-child)::after{content:'';position:absolute;top:17px;left:56%;width:88%;height:1px;background:rgba(0,200,190,.2);z-index:0}
+.pf-circle{width:35px;height:35px;border-radius:50%;background:rgba(0,200,190,.07);border:1.5px solid rgba(0,200,190,.22);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--teal);z-index:1;position:relative;font-family:'Space Grotesk',sans-serif}
+.pf-circle.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.pf-lbl{font-size:10.5px;color:var(--t2);margin-top:7px;text-align:center;line-height:1.3;font-family:'DM Sans',sans-serif}
+
+/* BARCHART */
+.barchart{display:flex;align-items:flex-end;gap:8px;height:110px;padding-bottom:20px;position:relative}
+.barchart::after{content:'';position:absolute;bottom:19px;left:0;right:0;height:1px;background:var(--bdr)}
+.bc-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:4px}
+.bc-bar{width:100%;border-radius:4px 4px 0 0}
+.bc-lbl{font-size:10px;color:var(--t3);white-space:nowrap;font-family:'DM Sans',sans-serif}
+.bc-val{font-size:9px;color:var(--t2);font-weight:500;font-family:'Space Grotesk',sans-serif}
+
+/* TALENT */
+.tal-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--bg);transition:background .4s}
+.tal-l{padding:88px 80px;border-right:1px solid var(--bdr)}
+.tal-r{padding:88px 80px;display:flex;flex-direction:column;justify-content:center}
+.job-card{background:var(--sur);border:1px solid var(--bdr);border-radius:14px;padding:28px;transition:all .4s}
+.job-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--bdr)}
+.job-row:last-child{border:none}
+
+/* CTA — REDESIGNED with orbit */
+#cta-section{background:var(--bg);text-align:center;padding:120px 80px;position:relative;overflow:hidden;transition:background .4s}
+.cta-content{position:relative;z-index:2}
+.cta-orbit-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;width:600px;height:600px}
+.orbit-ring{position:absolute;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.o1{width:560px;height:560px;border:1px solid rgba(0,200,190,.08);animation:vrot 28s linear infinite}
+.o2{width:400px;height:400px;border:1px dashed rgba(123,79,224,.1);animation:vrot 20s linear infinite reverse}
+.o3{width:240px;height:240px;border:1px solid rgba(0,200,190,.12);animation:vrot 14s linear infinite}
+[data-theme="light"] .o1{border-color:rgba(0,200,190,.12)}
+[data-theme="light"] .o2{border-color:rgba(123,79,224,.14)}
+[data-theme="light"] .o3{border-color:rgba(0,200,190,.18)}
+@keyframes vrot{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.cta-pre{font-size:clamp(16px,1.8vw,20px);color:var(--t2);font-style:italic;margin-bottom:12px;font-weight:300}
+.cta-h{font-family:'Space Grotesk',sans-serif;font-size:clamp(42px,5.5vw,76px);line-height:1.0;letter-spacing:-3px;font-weight:700;color:var(--t1);margin-bottom:16px}
+.run-dot{display:inline-block;width:11px;height:11px;background:var(--teal);border-radius:50%;vertical-align:middle;margin-bottom:4px;animation:tr 2.2s linear infinite}
+.cta-sub{font-size:16px;color:var(--t2);margin-bottom:40px;font-weight:300}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bdr);padding:52px 80px 32px;background:var(--bg);transition:all .4s}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:52px;margin-bottom:40px}
+.f-col h5{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px;font-weight:500;font-family:'DM Sans',sans-serif}
+.f-col a{display:block;font-size:13px;color:var(--t2);text-decoration:none;margin-bottom:10px;transition:color .2s;font-family:'DM Sans',sans-serif}
+.f-col a:hover{color:var(--teal)}
+.f-btm{border-top:1px solid var(--bdr);padding-top:18px;display:flex;align-items:center;justify-content:space-between}
+.f-copy{font-size:12px;color:var(--t3);font-family:'DM Sans',sans-serif}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.rev.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+</style>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">C<span class="logo-dot"></span>alfus</a>
+  <ul class="nav-links">
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#agents">Agents</a></li>
+    <li><a href="#uisys">UI System</a></li>
+    <li><a href="#caps">Capabilities</a></li>
+    <li><a href="#talent">Careers</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="theme-tog" onclick="toggleTheme()">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 1v1M6.5 11v1M1 6.5h1M11 6.5h1M2.8 2.8l.7.7M9.5 9.5l.7.7M2.8 10.2l.7-.7M9.5 3.5l.7-.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      <div class="tog-track" id="togTrack"><div class="tog-thumb"></div></div>
+      <span id="togLbl" style="font-size:11px">Light</span>
+    </div>
+    <a href="#cta-section" class="btn-nav">Run with it
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow hero-glow-dark"></div>
+  <div class="grid-bg"></div>
+  <!-- Rotating rings -->
+  <div class="vring" style="width:580px;height:580px;top:50%;left:50%;margin:-290px 0 0 -290px;animation-duration:24s"></div>
+  <div class="vring" style="width:400px;height:400px;top:50%;left:50%;margin:-200px 0 0 -200px;border-style:dashed;border-color:rgba(123,79,224,.1);animation-duration:34s;animation-direction:reverse"></div>
+  <div class="vring" style="width:220px;height:220px;top:50%;left:50%;margin:-110px 0 0 -110px;border-color:rgba(0,200,190,.08);animation-duration:16s"></div>
+  <!-- Dot cluster TL -->
+  <div style="position:absolute;top:14%;left:6%;z-index:1;opacity:.5">
+    <svg width="72" height="72" viewBox="0 0 72 72"><circle cx="8" cy="8" r="2" fill="#00C8BE"/><circle cx="28" cy="8" r="1.5" fill="#00C8BE" opacity=".5"/><circle cx="48" cy="8" r="1.5" fill="#00C8BE" opacity=".25"/><circle cx="8" cy="28" r="1.5" fill="#00C8BE" opacity=".5"/><circle cx="28" cy="28" r="2.5" fill="#00C8BE"/><circle cx="48" cy="28" r="1.5" fill="#7B4FE0" opacity=".7"/><circle cx="68" cy="28" r="1.5" fill="#7B4FE0" opacity=".35"/><circle cx="8" cy="48" r="1.5" fill="#00C8BE" opacity=".25"/><circle cx="28" cy="48" r="1.5" fill="#7B4FE0" opacity=".5"/><circle cx="48" cy="48" r="2" fill="#00C8BE" opacity=".75"/><circle cx="8" cy="68" r="1.5" fill="#00C8BE" opacity=".2"/><circle cx="28" cy="68" r="1.5" fill="#00C8BE" opacity=".3"/></svg>
+  </div>
+  <!-- Arc BR -->
+  <div style="position:absolute;bottom:9%;right:4%;z-index:1;opacity:.25">
+    <svg width="110" height="110" viewBox="0 0 110 110"><path d="M8 102 Q55 8 102 55" fill="none" stroke="#7B4FE0" stroke-width="1" stroke-dasharray="4 6"/><circle cx="102" cy="55" r="4" fill="#7B4FE0"/><circle cx="8" cy="102" r="3" fill="#00C8BE" opacity=".7"/></svg>
+  </div>
+  <!-- Floating cards -->
+  <div class="fc fc1">
+    <div class="fc-label"><span class="live-dot"></span>Agent Status</div>
+    <div class="fc-val">13</div>
+    <div class="fc-sub">Active AI Agents</div>
+  </div>
+  <div class="fc fc2">
+    <div class="fc-label"><span class="live-dot"></span>Aetherion</div>
+    <div class="fc-val">100%</div>
+    <div class="fc-sub">Production success rate</div>
+  </div>
+  <div class="fc fc3" style="min-width:175px">
+    <div class="fc-label" style="margin-bottom:8px">Agent Foundry</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-size:11px;color:var(--t2);font-family:'DM Sans',sans-serif">Finance</span><div class="bw"><div class="bf" style="width:92%;background:var(--teal)"></div></div><span class="cp">+4%</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-size:11px;color:var(--t2);font-family:'DM Sans',sans-serif">SCM</span><div class="bw"><div class="bf" style="width:78%;background:var(--violet)"></div></div><span class="cp">+12%</span></div>
+    </div>
+  </div>
+  <div class="fc fc4">
+    <div class="fc-label">Last deploy</div>
+    <div class="fc-val" style="font-size:17px">2.3s</div>
+    <div class="fc-sub">Avg latency</div>
+  </div>
+
+  <div class="hero-content">
+    <div class="overline"><span class="overline-dot"></span>AI-Native Enterprise Platform</div>
+    <h1 class="hero-h1">Run with <span class="it">it.</span><span class="dot-trail"></span></h1>
+    <p class="hero-sub">Transformation at enterprise scale.</p>
+    <p class="hero-body">Calfus is the platform-led AI partner that helps ambitious enterprises turn transformation into real outcomes — delivered with speed, accountability, and certainty.</p>
+    <div class="hero-ctas">
+      <a href="#platform" class="btn-p">Explore Aetherion<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M7 2.5l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#cta-section" class="btn-s">Talk to us</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-inner">
+    <div class="mq-item"><span class="mq-dot"></span>Oracle AI World Sponsor</div>
+    <div class="mq-item"><span class="mq-dot"></span>Google Cloud Partner</div>
+    <div class="mq-item"><span class="mq-dot"></span>Salesforce Ecosystem</div>
+    <div class="mq-item"><span class="mq-dot"></span>Asurint — Named Case Study</div>
+    <div class="mq-item"><span class="mq-dot"></span>13 AI Agents in Production</div>
+    <div class="mq-item"><span class="mq-dot"></span>0% Production Failure Rate</div>
+    <div class="mq-item"><span class="mq-dot"></span>Pleasanton CA · Pune India</div>
+    <div class="mq-item"><span class="mq-dot"></span>Oracle AI World Sponsor</div>
+    <div class="mq-item"><span class="mq-dot"></span>Google Cloud Partner</div>
+    <div class="mq-item"><span class="mq-dot"></span>Salesforce Ecosystem</div>
+    <div class="mq-item"><span class="mq-dot"></span>Asurint — Named Case Study</div>
+    <div class="mq-item"><span class="mq-dot"></span>13 AI Agents in Production</div>
+    <div class="mq-item"><span class="mq-dot"></span>0% Production Failure Rate</div>
+    <div class="mq-item"><span class="mq-dot"></span>Pleasanton CA · Pune India</div>
+  </div>
+</div>
+
+<!-- EDITORIAL -->
+<div class="editorial rev">
+  <div style="max-width:1120px;margin:0 auto">
+    <div class="s-over">The Problem</div>
+    <h2 class="ed-h">What if you could not only predict the future — but create it?</h2>
+    <p class="ed-body">Enterprise transformation today is slow, resource-heavy, and unpredictable. Most partners focus on technology delivery. Very few take ownership of business outcomes. Calfus is built differently.</p>
+    <div class="ed-rule"></div>
+    <div>
+      <div class="ed-row"><div class="ed-rt">Outcome-Led, Not Activity-Led</div><div class="ed-rd">We align to business outcomes, not just technical delivery. Success is defined by impact, not effort — before the client has to ask.</div></div>
+      <div class="ed-row"><div class="ed-rt">Speed as a Strategic Advantage</div><div class="ed-rd">We deliver quality transformation at exceptional velocity — enabling clients to move ahead of market change, not react to it.</div></div>
+      <div class="ed-row"><div class="ed-rt">Platform-Led Execution</div><div class="ed-rd">Aetherion enables scalable, AI-driven transformation with faster deployment and standardised yet flexible execution.</div></div>
+      <div class="ed-row"><div class="ed-rt">Built for Disruptors</div><div class="ed-rd">We partner with forward-looking leaders who see technology as a business lever — not just a cost centre.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PLATFORM -->
+<section id="platform" style="background:var(--bg)">
+  <div class="dot-bg"></div>
+  <div style="max-width:1120px;margin:0 auto">
+    <div class="rev"><div class="s-over">The Platform</div><h2 class="s-h">Aetherion. The engine.</h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:48px">
+      <div class="aether-viz rev d1">
+        <div class="aether-grid-bg"></div>
+        <svg width="100%" height="100%" viewBox="0 0 420 375" style="position:absolute;inset:0">
+          <defs><style>.ntxt{fill:var(--ntxt);font-family:'DM Sans',sans-serif;font-size:9px}</style></defs>
+          <line x1="210" y1="187" x2="210" y2="70" stroke="var(--nline)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="210" y1="187" x2="326" y2="130" stroke="var(--nline)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="210" y1="187" x2="336" y2="256" stroke="var(--nline)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="210" y1="187" x2="210" y2="306" stroke="var(--nline)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="210" y1="187" x2="84" y2="256" stroke="var(--nline)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="210" y1="187" x2="84" y2="130" stroke="var(--nline)" stroke-width="1" stroke-dasharray="4 4"/>
+          <circle cx="210" cy="187" r="30" fill="rgba(0,200,190,0.08)" stroke="#00C8BE" stroke-width="1.5"/>
+          <circle cx="210" cy="187" r="18" fill="rgba(0,200,190,0.1)" stroke="#00C8BE" stroke-width="1"/>
+          <circle cx="210" cy="187" r="5" fill="#00C8BE"><animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/></circle>
+          <circle cx="210" cy="70" r="13" fill="var(--net-node,rgba(123,79,224,0.15))" stroke="var(--nstroke)" stroke-width="1.2"/><circle cx="210" cy="70" r="4.5" fill="var(--nstroke)"/>
+          <circle cx="326" cy="130" r="13" fill="var(--net-node,rgba(123,79,224,0.15))" stroke="var(--nstroke)" stroke-width="1.2"/><circle cx="326" cy="130" r="4.5" fill="var(--nstroke)"/>
+          <circle cx="336" cy="256" r="13" fill="var(--net-node,rgba(123,79,224,0.15))" stroke="var(--nstroke)" stroke-width="1.2"/><circle cx="336" cy="256" r="4.5" fill="var(--nstroke)"/>
+          <circle cx="210" cy="306" r="13" fill="rgba(0,200,190,0.1)" stroke="#00C8BE" stroke-width="1.2"/><circle cx="210" cy="306" r="4.5" fill="#00C8BE"/>
+          <circle cx="84" cy="256" r="13" fill="var(--net-node,rgba(123,79,224,0.15))" stroke="var(--nstroke)" stroke-width="1.2"/><circle cx="84" cy="256" r="4.5" fill="var(--nstroke)"/>
+          <circle cx="84" cy="130" r="13" fill="var(--net-node,rgba(123,79,224,0.15))" stroke="var(--nstroke)" stroke-width="1.2"/><circle cx="84" cy="130" r="4.5" fill="var(--nstroke)"/>
+          <text x="210" y="66" text-anchor="middle" class="ntxt">Oracle ERP</text>
+          <text x="350" y="128" text-anchor="start" class="ntxt">Agent Foundry</text>
+          <text x="350" y="258" text-anchor="start" class="ntxt">GCP</text>
+          <text x="210" y="328" text-anchor="middle" class="ntxt">Salesforce</text>
+          <text x="60" y="258" text-anchor="end" class="ntxt">Data Layer</text>
+          <text x="60" y="128" text-anchor="end" class="ntxt">SCM / HCM</text>
+          <text x="210" y="190" text-anchor="middle" font-size="8" fill="#00C8BE" font-family="DM Sans" font-weight="500">Aetherion</text>
+          <circle r="3" fill="#00C8BE" opacity=".9"><animateMotion dur="4s" repeatCount="indefinite" path="M210,187 L210,70 L326,130 L336,256 L210,306 L84,256 L84,130 L210,187"/></circle>
+        </svg>
+        <div style="position:absolute;bottom:16px;left:18px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--bdr);letter-spacing:-1px">Aetherion</div>
+      </div>
+      <ul class="rev d2" style="list-style:none">
+        <li style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--bdr)"><div class="iw" style="width:36px;height:36px;min-width:36px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M13 3L4 14h8l-1 7 9-11h-8l1-7z" fill="rgba(0,200,190,.15)" stroke="#00C8BE" stroke-width="1.5" stroke-linejoin="round"/></svg></div><div><div style="font-size:15px;font-weight:600;color:var(--t1);margin-bottom:3px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Speed as a strategic asset</div><div style="font-size:13px;color:var(--t2);line-height:1.7;font-weight:300">Deploy in weeks. The industry averages months. That gap is your competitive advantage.</div></div></li>
+        <li style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--bdr)"><div class="iw v" style="width:36px;height:36px;min-width:36px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" fill="rgba(123,79,224,.12)" stroke="#a78bf5" stroke-width="1.5" stroke-linejoin="round"/></svg></div><div><div style="font-size:15px;font-weight:600;color:var(--t1);margin-bottom:3px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Platform-led, not project-led</div><div style="font-size:13px;color:var(--t2);line-height:1.7;font-weight:300">Aetherion accelerates every engagement through a proven, scalable platform core.</div></div></li>
+        <li style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--bdr)"><div class="iw a" style="width:36px;height:36px;min-width:36px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><circle cx="12" cy="12" r="9" fill="rgba(184,131,42,.1)" stroke="#B8832A" stroke-width="1.5"/><path d="M12 7v5l4 2" stroke="#B8832A" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><div style="font-size:15px;font-weight:600;color:var(--t1);margin-bottom:3px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Outcome accountability built in</div><div style="font-size:13px;color:var(--t2);line-height:1.7;font-weight:300">We hold ourselves to business results — success is defined by impact, not effort.</div></div></li>
+        <li style="display:flex;gap:14px;padding:18px 0"><div class="iw c" style="width:36px;height:36px;min-width:36px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,61,107,.1)" stroke="#FF3D6B" stroke-width="1.5"/><path d="M7 12h10M12 7v10" stroke="#FF3D6B" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><div style="font-size:15px;font-weight:600;color:var(--t1);margin-bottom:3px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">AI-driven transformation at scale</div><div style="font-size:13px;color:var(--t2);line-height:1.7;font-weight:300">Standardised yet flexible execution across your entire enterprise stack.</div></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" style="background:var(--bg2);text-align:center">
+  <div style="max-width:1120px;margin:0 auto">
+    <div class="rev"><div class="s-over" style="justify-content:center">Proof, not promises</div><h2 class="s-h" style="text-align:center">Numbers that run.</h2></div>
+    <div class="stats-grid rev d1" style="margin-top:48px">
+      <div class="stat-cell"><div class="stat-num"><span id="s1">0</span><em>%</em></div><div class="stat-lbl">Production failure rate</div><div class="stat-note">vs 95% industry average</div></div>
+      <div class="stat-cell"><div class="stat-num"><span id="s2">0</span><em>×</em></div><div class="stat-lbl">Faster than industry average</div><div class="stat-note">Weeks, not months</div></div>
+      <div class="stat-cell"><div class="stat-num"><span id="s3">0</span></div><div class="stat-lbl">AI Agents in production</div><div class="stat-note">Across the enterprise stack</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTS -->
+<section id="agents" style="background:var(--bg)">
+  <div class="grid-bg"></div>
+  <div style="max-width:1120px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:48px">
+      <div class="rev"><div class="s-over">Agent Foundry</div><h2 class="s-h">Intelligence, by design.</h2></div>
+      <div class="rev d1">
+        <p class="s-sub">13 production-grade AI agents built for enterprise complexity. Not demos — deployed and running.</p>
+        <div style="margin-top:20px">
+          <div class="dash">
+            <div class="dash-hdr"><span class="dash-t">Agent Foundry — Live</span><div style="display:flex;gap:4px"><div class="dd" style="background:#FF3D6B"></div><div class="dd" style="background:#B8832A"></div><div class="dd" style="background:#1A9E6E"></div></div></div>
+            <div style="padding:14px 16px">
+              <div class="dm"><span class="dm-n">Finance Agent</span><div style="display:flex;align-items:center;gap:8px"><div class="bw"><div class="bf" style="width:92%;background:var(--teal)"></div></div><span class="dm-v">92%</span><span class="cp">+4%</span></div></div>
+              <div class="dm"><span class="dm-n">Supply Chain</span><div style="display:flex;align-items:center;gap:8px"><div class="bw"><div class="bf" style="width:87%;background:var(--violet)"></div></div><span class="dm-v">87%</span><span class="cp">+12%</span></div></div>
+              <div class="dm"><span class="dm-n">HR Agent</span><div style="display:flex;align-items:center;gap:8px"><div class="bw"><div class="bf" style="width:74%;background:var(--amber)"></div></div><span class="dm-v">74%</span><span class="cn">−2%</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+      <div class="agent-card rev"><div class="iw" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(0,200,190,.15)" stroke="rgba(0,200,190,.4)" stroke-width="1.5"/><path d="M7 12h10M7 8h6M7 16h8" stroke="#00C8BE" stroke-width="1.3" stroke-linecap="round"/></svg></div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk',sans-serif">Finance Agent</div><div style="font-size:11px;color:var(--t2);line-height:1.5">ERP workflows, reconciliation</div></div>
+      <div class="agent-card rev d1"><div class="iw v" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M3 9l9-6 9 6v11a1 1 0 01-1 1H4a1 1 0 01-1-1V9z" fill="rgba(123,79,224,.12)" stroke="#a78bf5" stroke-width="1.5"/></svg></div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk',sans-serif">Supply Chain</div><div style="font-size:11px;color:var(--t2);line-height:1.5">SCM intelligence, demand signals</div></div>
+      <div class="agent-card rev d2"><div class="iw a" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><circle cx="12" cy="8" r="4" fill="rgba(184,131,42,.12)" stroke="#B8832A" stroke-width="1.5"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#B8832A" stroke-width="1.5" stroke-linecap="round"/></svg></div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk',sans-serif">HR Agent</div><div style="font-size:11px;color:var(--t2);line-height:1.5">HCM automation, talent ops</div></div>
+      <div class="agent-card rev d3"><div class="iw c" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><circle cx="12" cy="12" r="9" fill="rgba(255,61,107,.1)" stroke="rgba(255,61,107,.4)" stroke-width="1.5"/><path d="M12 7v5l4 2" stroke="#FF3D6B" stroke-width="1.3" stroke-linecap="round"/></svg></div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk',sans-serif">Planning Agent</div><div style="font-size:11px;color:var(--t2);line-height:1.5">EPM, budgeting, modelling</div></div>
+      <div class="agent-card rev"><div class="iw" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h8v4H3z" fill="rgba(0,200,190,.1)" stroke="rgba(0,200,190,.4)" stroke-width="1.3" stroke-linejoin="round"/></svg></div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk',sans-serif">Data Agent</div><div style="font-size:11px;color:var(--t2);line-height:1.5">Analytics, BI, intelligence</div></div>
+      <div class="agent-card rev d1"><div class="iw v" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" fill="rgba(123,79,224,.1)" stroke="#a78bf5" stroke-width="1.3" stroke-linejoin="round"/></svg></div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk',sans-serif">Integration Agent</div><div style="font-size:11px;color:var(--t2);line-height:1.5">Cross-system orchestration</div></div>
+      <div class="agent-card rev d2"><div class="iw a" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><rect x="4" y="4" width="16" height="16" rx="4" fill="rgba(184,131,42,.1)" stroke="#B8832A" stroke-width="1.3"/><path d="M8 12l3 3 5-5" stroke="#B8832A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk',sans-serif">Compliance Agent</div><div style="font-size:11px;color:var(--t2);line-height:1.5">Audit, regulatory, governance</div></div>
+      <div class="agent-card rev d3"><div class="iw" style="width:34px;height:34px;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M13 3L4 14h8l-1 7 9-11h-8l1-7z" fill="rgba(0,200,190,.12)" stroke="#00C8BE" stroke-width="1.3" stroke-linejoin="round"/></svg></div><div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;font-family:'Space Grotesk',sans-serif">Operations Agent</div><div style="font-size:11px;color:var(--t2);line-height:1.5">Process automation, acceleration</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section style="background:var(--bg2);text-align:center">
+  <div class="dot-bg"></div>
+  <div style="position:relative;z-index:1;max-width:1120px;margin:0 auto" class="rev">
+    <p class="tq">Calfus didn't just implement a platform — they changed how we think about enterprise speed. The results were measurable from week one.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px">
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--violet));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:'Space Grotesk',sans-serif">AS</div>
+      <div style="text-align:left"><div style="font-size:15px;font-weight:600;color:var(--t1);font-family:'Space Grotesk',sans-serif">Alla Schay</div><div style="font-size:13px;color:var(--t2)">CEO, Asurint</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="caps" style="background:var(--bg)">
+  <div class="grid-bg"></div>
+  <div style="max-width:1120px;margin:0 auto">
+    <div class="rev"><div class="s-over">Oracle Expertise</div><h2 class="s-h">The full enterprise stack.</h2><p class="s-sub">Deep Oracle specialisation across every critical enterprise domain.</p></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:52px">
+      <div class="cap-card rev d1"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(0,200,190,.15)" stroke="rgba(0,200,190,.4)" stroke-width="1.5"/><path d="M7 12h10M7 8h6M7 16h8" stroke="#00C8BE" stroke-width="1.5" stroke-linecap="round"/></svg></div><span class="tag" style="margin:12px 0 0;display:inline-flex">ERP</span><div style="font-size:16px;font-weight:600;color:var(--t1);margin:12px 0 8px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Enterprise Resource Planning</div><div style="font-size:13px;color:var(--t2);line-height:1.68;font-weight:300">Oracle ERP transformation mapping to business outcomes, not just system implementation.</div></div>
+      <div class="cap-card rev d2"><div class="iw v"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M3 9l9-6 9 6v11a1 1 0 01-1 1H4a1 1 0 01-1-1V9z" fill="rgba(123,79,224,.12)" stroke="#a78bf5" stroke-width="1.5"/></svg></div><span class="tag v" style="margin:12px 0 0;display:inline-flex">SCM</span><div style="font-size:16px;font-weight:600;color:var(--t1);margin:12px 0 8px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Supply Chain Management</div><div style="font-size:13px;color:var(--t2);line-height:1.68;font-weight:300">End-to-end supply chain intelligence — from demand sensing to fulfilment execution.</div></div>
+      <div class="cap-card rev d3"><div class="iw a"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="8" r="4" fill="rgba(184,131,42,.12)" stroke="#B8832A" stroke-width="1.5"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#B8832A" stroke-width="1.5" stroke-linecap="round"/></svg></div><span class="tag a" style="margin:12px 0 0;display:inline-flex">HCM</span><div style="font-size:16px;font-weight:600;color:var(--t1);margin:12px 0 8px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Human Capital Management</div><div style="font-size:13px;color:var(--t2);line-height:1.68;font-weight:300">Workforce transformation that scales with ambition — hiring, operations, retention.</div></div>
+      <div class="cap-card rev d1"><div class="iw c"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="12" r="9" fill="rgba(255,61,107,.1)" stroke="rgba(255,61,107,.4)" stroke-width="1.5"/><path d="M12 7v5l4 2" stroke="#FF3D6B" stroke-width="1.5" stroke-linecap="round"/></svg></div><span class="tag c" style="margin:12px 0 0;display:inline-flex">EPM</span><div style="font-size:16px;font-weight:600;color:var(--t1);margin:12px 0 8px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Enterprise Performance Mgmt</div><div style="font-size:13px;color:var(--t2);line-height:1.68;font-weight:300">Planning, budgeting, and financial close rebuilt for AI-era velocity.</div></div>
+      <div class="cap-card rev d2"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" fill="rgba(0,200,190,.1)" stroke="#00C8BE" stroke-width="1.5" stroke-linejoin="round"/></svg></div><span class="tag" style="margin:12px 0 0;display:inline-flex">Agentic AI</span><div style="font-size:16px;font-weight:600;color:var(--t1);margin:12px 0 8px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Agent-Led Automation</div><div style="font-size:13px;color:var(--t2);line-height:1.68;font-weight:300">AI agents that own workflows and deliver results autonomously — not just assist.</div></div>
+      <div class="cap-card rev d3"><div class="iw v"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2" fill="rgba(123,79,224,.1)" stroke="#a78bf5" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="#a78bf5" stroke-width="1.5" stroke-linecap="round"/></svg></div><span class="tag v" style="margin:12px 0 0;display:inline-flex">Tech Stack</span><div style="font-size:16px;font-weight:600;color:var(--t1);margin:12px 0 8px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Technology Architecture</div><div style="font-size:13px;color:var(--t2);line-height:1.68;font-weight:300">Oracle Cloud, GCP, and Salesforce ecosystems working as one coherent system.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- UI SYSTEM -->
+<section id="uisys" style="background:var(--bg2)">
+  <div style="max-width:1120px;margin:0 auto">
+    <div class="rev"><div class="s-over">Design System</div><h2 class="s-h">UI Components.</h2><p class="s-sub">Every element is part of the Calfus design language, applied consistently across product and marketing.</p></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:48px">
+
+      <!-- ICONS -->
+      <div class="ui-blk rev d1">
+        <div class="ui-blk-title">Icon System — Duotone</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(0,200,190,.15)" stroke="rgba(0,200,190,.4)" stroke-width="1.5"/><path d="M7 12h10M7 8h6M7 16h8" stroke="#00C8BE" stroke-width="1.5" stroke-linecap="round"/></svg></div><span style="font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif">ERP</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div class="iw v"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="12" r="8" fill="rgba(123,79,224,.15)" stroke="rgba(123,79,224,.4)" stroke-width="1.5"/><path d="M12 8v4l3 3" stroke="#a78bf5" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="2" fill="#7B4FE0"/></svg></div><span style="font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif">Agent</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div class="iw a"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3L3 9v12h6v-6h6v6h6V9L12 3z" fill="rgba(184,131,42,.12)" stroke="rgba(184,131,42,.4)" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="11" r="2" fill="#B8832A"/></svg></div><span style="font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif">Enterprise</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div class="iw c"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="4" y="4" width="16" height="16" rx="4" fill="rgba(255,61,107,.1)" stroke="rgba(255,61,107,.35)" stroke-width="1.5"/><path d="M8 12l3 3 5-5" stroke="#FF3D6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span style="font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif">Success</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M13 3L4 14h8l-1 7 9-11h-8l1-7z" fill="rgba(0,200,190,.12)" stroke="#00C8BE" stroke-width="1.5" stroke-linejoin="round"/></svg></div><span style="font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif">Speed</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div class="iw v"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" fill="rgba(123,79,224,.1)" stroke="#a78bf5" stroke-width="1.5" stroke-linejoin="round"/></svg></div><span style="font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif">Platform</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div class="iw a"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="8" r="4" fill="rgba(184,131,42,.12)" stroke="#B8832A" stroke-width="1.5"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#B8832A" stroke-width="1.5" stroke-linecap="round"/></svg></div><span style="font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif">HCM</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2" fill="rgba(0,200,190,.1)" stroke="rgba(0,200,190,.35)" stroke-width="1.5"/><path d="M6 9h4v5H6zM12 7h6v7h-6z" fill="rgba(0,200,190,.2)" stroke="#00C8BE" stroke-width="1"/></svg></div><span style="font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif">Analytics</span></div>
+        </div>
+      </div>
+
+      <!-- TAGS & AVATARS -->
+      <div class="ui-blk rev d2">
+        <div class="ui-blk-title">Tags, Pills & Avatars</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:7px;flex-wrap:wrap"><span class="tag"><span class="tag-dot"></span>Agentic AI</span><span class="tag v"><span class="tag-dot"></span>Platform</span><span class="tag c"><span class="tag-dot"></span>Active</span><span class="tag a"><span class="tag-dot"></span>Oracle</span></div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap"><span class="tag">ERP</span><span class="tag">SCM</span><span class="tag">HCM</span><span class="tag">EPM</span><span class="tag v">Aetherion</span></div>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:4px">
+            <div class="av-stack"><div class="av" style="background:var(--teal)">AK</div><div class="av" style="background:var(--violet)">SR</div><div class="av" style="background:var(--coral)">MJ</div><div class="av" style="background:var(--amber)">+4</div></div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t2);font-family:'DM Sans',sans-serif">
+              <span style="position:relative;display:inline-block"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="var(--t2)" stroke-width="1.5" stroke-linecap="round"/></svg><span class="badge" style="position:absolute;top:-5px;right:-5px">3</span></span>
+              Notifications
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="ui-blk rev d1">
+        <div class="ui-blk-title">Button System</div>
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn-p">Primary<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="btn-s">Secondary</button>
+            <button class="btn-t">Tertiary →</button>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn-vio">Violet variant</button>
+            <button class="btn-p" style="padding:9px 18px;font-size:12px">Small</button>
+            <button class="btn-p" style="opacity:.42;cursor:not-allowed">Disabled</button>
+          </div>
+          <div class="seg"><button class="seg-btn active">1D</button><button class="seg-btn">7D</button><button class="seg-btn">1M</button><button class="seg-btn">1Y</button><button class="seg-btn">All</button></div>
+        </div>
+      </div>
+
+      <!-- SWITCHES & SLIDER -->
+      <div class="ui-blk rev d2">
+        <div class="ui-blk-title">Toggles, Switches & Slider</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:14px;align-items:center">
+            <div class="sw on" onclick="this.classList.toggle('on')"><div class="sw-th"></div></div>
+            <div class="sw" onclick="this.classList.toggle('on')"><div class="sw-th"></div></div>
+            <div class="sw on" style="opacity:.4"><div class="sw-th"></div></div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div style="width:16px;height:16px;border-radius:3px;background:var(--teal);border:1.5px solid var(--teal);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div style="width:16px;height:16px;border-radius:3px;border:1.5px solid var(--bdr)"></div>
+              <div style="width:16px;height:16px;border-radius:50%;border:1.5px solid var(--teal);background:var(--teal);display:flex;align-items:center;justify-content:center"><div style="width:6px;height:6px;border-radius:50%;background:#fff"></div></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:8px;font-family:'DM Sans',sans-serif"><span>Processing speed</span><span style="color:var(--teal);font-family:'Space Grotesk',sans-serif;font-weight:600" id="sliderVal">60%</span></div>
+            <input type="range" min="0" max="100" value="60" style="--val:60%" id="speedSlider">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;justify-content:space-between;font-size:12px;font-family:'DM Sans',sans-serif"><span style="color:var(--t2)">Deployment speed</span><span style="color:var(--t1);font-weight:500">92%</span></div>
+            <div class="prog"><div class="prog-bar" style="width:92%"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;font-family:'DM Sans',sans-serif"><span style="color:var(--t2)">Cost efficiency</span><span style="color:var(--t1);font-weight:500">78%</span></div>
+            <div class="prog"><div class="prog-bar" style="width:78%;background:var(--violet)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM FIELDS -->
+      <div class="ui-blk rev d1">
+        <div class="ui-blk-title">Form Fields & OTP Input</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="field"><label>Company name</label><input type="text" placeholder="e.g. Asurint Inc."></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="field"><label>First name</label><input type="text" placeholder="Alla"></div>
+            <div class="field"><label>Last name</label><input type="text" placeholder="Schay"></div>
+          </div>
+          <div class="field">
+            <label>Verify OTP</label>
+            <div class="otp-wrap"><input class="otp-box filled" value="4" maxlength="1"><input class="otp-box filled" value="3" maxlength="1"><input class="otp-box filled" value="2" maxlength="1"><input class="otp-box" placeholder="—" maxlength="1"><input class="otp-box" placeholder="—" maxlength="1"><input class="otp-box" placeholder="—" maxlength="1"></div>
+          </div>
+          <div class="field"><label>Error state</label><input type="text" style="border-color:rgba(192,57,43,.6)" value="invalid@email"><span style="font-size:11px;color:#e05545;margin-top:2px;font-family:'DM Sans',sans-serif">Please enter a valid email address</span></div>
+        </div>
+      </div>
+
+      <!-- NOTIFICATIONS -->
+      <div class="ui-blk rev d2">
+        <div class="ui-blk-title">Status & Notifications</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="toast ok"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#2dc98e" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#2dc98e" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Agent deployment successful — 0 failures</div>
+          <div class="toast warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2L1 13h13L7.5 2z" stroke="#e8a830" stroke-width="1.2" stroke-linejoin="round"/><path d="M7.5 6.5v3M7.5 11v.5" stroke="#e8a830" stroke-width="1.3" stroke-linecap="round"/></svg>Workflow latency above threshold</div>
+          <div class="toast err"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#e05545" stroke-width="1.2"/><path d="M5 5l5 5M10 5l-5 5" stroke="#e05545" stroke-width="1.3" stroke-linecap="round"/></svg>Integration handshake failed</div>
+          <div class="toast info"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#00C8BE" stroke-width="1.2"/><path d="M7.5 6.5v5M7.5 4.5v.5" stroke="#00C8BE" stroke-width="1.3" stroke-linecap="round"/></svg>Aetherion sync complete — 13 agents active</div>
+        </div>
+      </div>
+
+      <!-- DATA VIZ -->
+      <div class="ui-blk rev d1">
+        <div class="ui-blk-title">Data Visualization</div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:12px;font-family:'DM Sans',sans-serif">Enterprise transformation impact</div>
+        <div class="barchart">
+          <div class="bc-col"><div class="bc-val">$220M</div><div class="bc-bar" style="height:95px;background:var(--teal)"></div><div class="bc-lbl">OpEx</div></div>
+          <div class="bc-col"><div class="bc-val">$200M</div><div class="bc-bar" style="height:88px;background:var(--violet)"></div><div class="bc-lbl">Healthcare</div></div>
+          <div class="bc-col"><div class="bc-val">80%</div><div class="bc-bar" style="height:72px;background:var(--amber)"></div><div class="bc-lbl">Root cause</div></div>
+          <div class="bc-col"><div class="bc-val">8×</div><div class="bc-bar" style="height:56px;background:rgba(0,200,190,.45)"></div><div class="bc-lbl">Speed</div></div>
+          <div class="bc-col"><div class="bc-val">0%</div><div class="bc-bar" style="height:8px;background:var(--success)"></div><div class="bc-lbl">Failures</div></div>
+        </div>
+      </div>
+
+      <!-- CONTEXT MENU + MODAL + SKELETON -->
+      <div class="ui-blk rev d2">
+        <div class="ui-blk-title">Context Menu & Skeleton</div>
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;padding:6px;min-width:168px;transition:background .4s">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:6px;font-size:13px;color:var(--t1);background:var(--sur);font-family:'DM Sans',sans-serif"><div style="display:flex;align-items:center;gap:7px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1.5" y="1.5" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M4 6.5h5M6.5 4v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>New file</div><kbd>⌘N</kbd></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:6px;font-size:13px;color:var(--t1);font-family:'DM Sans',sans-serif"><div style="display:flex;align-items:center;gap:7px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 2h9v9H2zM9 2l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Edit</div><kbd>⌘E</kbd></div>
+            <div style="height:1px;background:var(--bdr);margin:4px 0"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:6px;font-size:13px;color:var(--error);font-family:'DM Sans',sans-serif"><div style="display:flex;align-items:center;gap:7px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 4h9M5 4V2.5h3V4M10 4l-.5 7H3.5L3 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Delete</div><kbd>⌘⌫</kbd></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:center;gap:8px"><div class="skel" style="width:34px;height:34px;border-radius:50%;flex-shrink:0"></div><div style="flex:1"><div class="skel" style="height:11px;width:55%;margin-bottom:5px"></div><div class="skel" style="height:9px;width:38%"></div></div></div>
+            <div class="skel" style="height:9px"></div>
+            <div class="skel" style="height:9px;width:82%"></div>
+            <div class="skel" style="height:9px;width:68%"></div>
+            <div style="display:flex;gap:7px"><div class="skel" style="height:30px;flex:1;border-radius:6px"></div><div class="skel" style="height:30px;flex:1;border-radius:6px"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARDS -->
+      <div class="ui-blk rev d1" style="grid-column:1/-1">
+        <div class="ui-blk-title">Card Variants</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+          <div class="card-l">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><div class="iw"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(0,200,190,.15)" stroke="rgba(0,200,190,.4)" stroke-width="1.5"/><path d="M7 12h10M7 8h6M7 16h8" stroke="#00C8BE" stroke-width="1.5" stroke-linecap="round"/></svg></div><span class="tag" style="font-size:10px;padding:3px 10px">ERP</span></div>
+            <div style="font-size:15px;font-weight:600;color:var(--t1);margin-bottom:7px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Light Card</div>
+            <div style="font-size:12px;color:var(--t2);line-height:1.65;font-weight:300">White bg, border, 12px radius. Used for industry and feature cards.</div>
+            <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--bdr)"><a href="#" class="btn-t" style="font-size:12px">Read more →</a></div>
+          </div>
+          <div class="card-d">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px"><div class="iw v"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="12" r="8" fill="rgba(123,79,224,.15)" stroke="rgba(123,79,224,.4)" stroke-width="1.5"/><path d="M12 8v4l3 3" stroke="#a78bf5" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="2" fill="#7B4FE0"/></svg></div><span class="tag v" style="font-size:10px;padding:3px 10px">Platform</span></div>
+            <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:7px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px">Dark Card</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.65;font-weight:300">Navy bg, 12px radius. Used for solutions and featured dark sections.</div>
+            <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)"><a href="#" class="btn-t" style="font-size:12px">Read more →</a></div>
+          </div>
+          <div style="border-radius:12px;overflow:hidden;position:relative;min-height:190px;background:linear-gradient(135deg,rgba(123,79,224,.55),rgba(0,200,190,.35))">
+            <div style="position:absolute;inset:0;background-image:linear-gradient(var(--bdr) 1px,transparent 1px),linear-gradient(90deg,var(--bdr) 1px,transparent 1px);background-size:22px 22px;opacity:.3"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,14,42,.9) 100%)"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:18px"><span class="tag" style="margin-bottom:9px;display:inline-flex;font-size:10px">Case Study</span><div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#fff;line-height:1.2;margin-bottom:12px;letter-spacing:-.3px">Digital Transformation</div><button class="btn-s" style="font-size:12px;padding:8px 16px;border-color:rgba(255,255,255,.3);color:#fff">Learn more</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS FLOW + BREADCRUMB + KBD -->
+      <div class="ui-blk rev d1" style="grid-column:1/-1">
+        <div class="ui-blk-title">Process Flow & Navigation Components</div>
+        <div class="pflow" style="margin-bottom:24px">
+          <div class="pf-step"><div class="pf-circle active">01</div><div class="pf-lbl">Discover<br>&amp; Define</div></div>
+          <div class="pf-step"><div class="pf-circle active">02</div><div class="pf-lbl">Platform<br>Setup</div></div>
+          <div class="pf-step"><div class="pf-circle active">03</div><div class="pf-lbl">Agent<br>Deploy</div></div>
+          <div class="pf-step"><div class="pf-circle">04</div><div class="pf-lbl">Optimise<br>&amp; Scale</div></div>
+          <div class="pf-step"><div class="pf-circle">05</div><div class="pf-lbl">Outcomes<br>Delivered</div></div>
+        </div>
+        <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+          <div><div class="ui-blk-title" style="border:none;padding:0;margin-bottom:10px">Breadcrumb</div><div class="breadcrumb"><a href="#">Home</a><span style="color:var(--t3)">/</span><a href="#">Platform</a><span style="color:var(--t3)">/</span><a href="#">Aetherion</a><span style="color:var(--t3)">/</span><span style="color:var(--teal)">Overview</span></div></div>
+          <div><div class="ui-blk-title" style="border:none;padding:0;margin-bottom:10px">Keyboard Shortcuts</div><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;gap:24px;font-size:12px;color:var(--t2);font-family:'DM Sans',sans-serif"><span>New agent</span><div style="display:flex;gap:3px"><kbd>⌘</kbd><kbd>N</kbd></div></div><div style="display:flex;justify-content:space-between;gap:24px;font-size:12px;color:var(--t2);font-family:'DM Sans',sans-serif"><span>Run deploy</span><div style="display:flex;gap:3px"><kbd>⌘</kbd><kbd>⏎</kbd></div></div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TALENT -->
+<div class="tal-grid">
+  <div class="tal-l rev">
+    <div class="s-over">Join the team</div>
+    <h2 class="s-h">Grow bigger than you thought <span style="color:var(--teal)">possible.</span></h2>
+    <p style="font-size:15px;color:var(--t2);line-height:1.82;font-weight:300">Calfus is built for engineers and AI builders who want to run — with ownership, speed, and real impact at enterprise scale.</p>
+    <ul style="list-style:none;margin-top:22px">
+      <li style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--bdr);font-size:14px;color:var(--t2);font-weight:300"><div style="width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0"></div>Work on real production AI at enterprise scale</li>
+      <li style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--bdr);font-size:14px;color:var(--t2);font-weight:300"><div style="width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0"></div>Ownership without hand-holding</li>
+      <li style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--bdr);font-size:14px;color:var(--t2);font-weight:300"><div style="width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0"></div>Fast career trajectory — no bureaucracy</li>
+      <li style="display:flex;align-items:center;gap:10px;padding:11px 0;font-size:14px;color:var(--t2);font-weight:300"><div style="width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0"></div>Pleasanton, CA + Pune, India — global from day one</li>
+    </ul>
+  </div>
+  <div class="tal-r rev d2">
+    <div class="job-card">
+      <div class="s-over" style="margin-bottom:18px">Open roles</div>
+      <div class="job-row"><div><div style="font-size:14px;font-weight:600;color:var(--t1);font-family:'Space Grotesk',sans-serif">Senior AI Engineer</div><div style="font-size:12px;color:var(--t3);margin-top:3px;font-family:'DM Sans',sans-serif">Pune · Full-time</div></div><a href="#" class="btn-t" style="font-size:12px">Apply →</a></div>
+      <div class="job-row"><div><div style="font-size:14px;font-weight:600;color:var(--t1);font-family:'Space Grotesk',sans-serif">Oracle Architect</div><div style="font-size:12px;color:var(--t3);margin-top:3px;font-family:'DM Sans',sans-serif">Pleasanton, CA · Full-time</div></div><a href="#" class="btn-t" style="font-size:12px">Apply →</a></div>
+      <div class="job-row"><div><div style="font-size:14px;font-weight:600;color:var(--t1);font-family:'Space Grotesk',sans-serif">ML Engineer</div><div style="font-size:12px;color:var(--t3);margin-top:3px;font-family:'DM Sans',sans-serif">Pune · Full-time</div></div><a href="#" class="btn-t" style="font-size:12px">Apply →</a></div>
+      <div class="job-row" style="border:none"><div><div style="font-size:14px;font-weight:600;color:var(--t1);font-family:'Space Grotesk',sans-serif">Product Designer</div><div style="font-size:12px;color:var(--t3);margin-top:3px;font-family:'DM Sans',sans-serif">Pune · Full-time</div></div><a href="#" class="btn-t" style="font-size:12px">Apply →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA — REDESIGNED ORBIT -->
+<section id="cta-section">
+  <!-- Orbit rings -->
+  <div class="cta-orbit-wrap">
+    <div class="orbit-ring o1"></div>
+    <div class="orbit-ring o2"></div>
+    <div class="orbit-ring o3"></div>
+    <!-- Travelling dot on outer ring -->
+    <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:560px;height:560px;overflow:visible" viewBox="0 0 560 560">
+      <circle r="5" fill="#00C8BE" opacity=".9">
+        <animateMotion dur="28s" repeatCount="indefinite"><mpath xlink:href="#orbit-path"/></animateMotion>
+      </circle>
+      <path id="orbit-path" d="M280,0 a280,280 0 1,1 -0.001,0" fill="none" stroke="none"/>
+      <!-- Second dot on middle ring -->
+      <circle r="4" fill="#7B4FE0" opacity=".7">
+        <animateMotion dur="20s" repeatCount="indefinite" begin="5s"><mpath xlink:href="#orbit-path2"/></animateMotion>
+      </circle>
+      <path id="orbit-path2" d="M280,80 a200,200 0 1,1 -0.001,0" fill="none" stroke="none"/>
+    </svg>
+    <!-- Center teal dot -->
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:var(--teal);animation:dp 2s ease-in-out infinite;box-shadow:0 0 0 8px rgba(0,200,190,.08),0 0 0 16px rgba(0,200,190,.04)"></div>
+  </div>
+  <div class="cta-content rev">
+    <p class="cta-pre">Most organisations hesitate. The best ones move.</p>
+    <h2 class="cta-h"><span class="run-dot"></span> Ready to run with it?</h2>
+    <p class="cta-sub">Calfus helps enterprises turn transformation into real business outcomes — with speed, accountability, and certainty.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-p" style="font-size:15px;padding:16px 42px">Let's talk →</a>
+      <a href="#platform" class="btn-s" style="font-size:15px;padding:16px 42px">See the platform</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-grid" style="max-width:1120px;margin:0 auto 40px">
+    <div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--t1);margin-bottom:12px;letter-spacing:-.5px">C<span style="color:var(--teal)">·</span>alfus</div>
+      <p style="font-size:13px;color:var(--t2);line-height:1.75;max-width:250px;font-weight:300">Platform-led, AI-native transformation for enterprises that don't wait.</p>
+      <div style="display:flex;gap:7px;margin-top:14px"><span class="tag" style="font-size:10px;padding:3px 10px">Pleasanton, CA</span><span class="tag" style="font-size:10px;padding:3px 10px">Pune, India</span></div>
+    </div>
+    <div class="f-col"><h5>Platform</h5><a href="#">Aetherion</a><a href="#">Agent Foundry</a><a href="#">Capabilities</a><a href="#">Case Studies</a></div>
+    <div class="f-col"><h5>Company</h5><a href="#">Who We Are</a><a href="#">Our Work</a><a href="#">Careers</a><a href="#">Blog</a></div>
+    <div class="f-col"><h5>Connect</h5><a href="#">LinkedIn</a><a href="#">Let's Talk</a><a href="#">Contact</a><a href="#">Oracle Partner</a></div>
+  </div>
+  <div class="f-btm" style="max-width:1120px;margin:0 auto">
+    <span class="f-copy">© 2026 Calfus Inc. · All rights reserved.</span>
+    <span class="f-copy">Privacy · Terms</span>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button,.agent-card,.cap-card,.card-l,.sw,.seg-btn,.job-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='28px';cur.style.height='28px';ring.style.width='52px';ring.style.height='52px';ring.style.opacity='.28'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='38px';ring.style.height='38px';ring.style.opacity='.45'});
+});
+document.addEventListener('mousedown',()=>{cur.style.transform='translate(-50%,-50%) scale(.75)'});
+document.addEventListener('mouseup',()=>{cur.style.transform='translate(-50%,-50%) scale(1)'});
+
+// THEME
+let isDark=true;
+function toggleTheme(){
+  isDark=!isDark;
+  document.documentElement.setAttribute('data-theme',isDark?'':'light');
+  const tk=document.getElementById('togTrack'),lb=document.getElementById('togLbl');
+  if(isDark){tk.classList.remove('on');lb.textContent='Light'}
+  else{tk.classList.add('on');lb.textContent='Dark'}
+}
+
+// REVEAL
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+// STATS
+let sf=false;
+const so=new IntersectionObserver(e=>{if(e[0].isIntersecting&&!sf){sf=true;const cu=(id,t,d)=>{let s=0,sp=t/(d/16);const el=document.getElementById(id);const tm=setInterval(()=>{s=Math.min(s+sp,t);el.textContent=Math.round(s);if(s>=t)clearInterval(tm)},16)};cu('s1',0,1200);cu('s2',8,1200);cu('s3',13,1200)}},{threshold:.3});
+const sg=document.querySelector('.stats-grid');if(sg)so.observe(sg);
+
+// SLIDER
+const sl=document.getElementById('speedSlider'),sv=document.getElementById('sliderVal');
+if(sl){sl.addEventListener('input',function(){const v=this.value;this.style.setProperty('--val',v+'%');sv.textContent=v+'%'})}
+
+// SEGMENTED
+document.querySelectorAll('.seg-btn').forEach(btn=>{btn.addEventListener('click',function(){this.closest('.seg').querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')})});
+
+// SWITCHES
+document.querySelectorAll('.sw').forEach(t=>{t.addEventListener('click',function(){if(!this.style.opacity)this.classList.toggle('on')})});
+</script>
